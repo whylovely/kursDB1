@@ -1,17 +1,36 @@
+using System;
+using System.Windows.Forms;
+using kursDB1.Utils;
+using kursDB1.Views;
+
 namespace kursDB1
 {
-    internal static class Program
+    static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            // Настройка конфигурации, если необходимо
+            AppConfig.LoadConfiguration();
+
+            // Инициализация и настройка базы данных
+            InitializeDatabase();
+
+            // Настройка стиля приложения
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            // Запуск формы входа
+            Application.Run(new LoginForm());
+        }
+
+        private static void InitializeDatabase()
+        {
+            using (var context = new AppDbContext())
+            {
+                // Можно добавить логику для создания базы данных или миграций, если они не существуют
+                context.Database.EnsureCreated();
+            }
         }
     }
 }
