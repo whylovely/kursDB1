@@ -1,0 +1,32 @@
+﻿using System;
+using System.Windows.Forms;
+using kursDB1.Controllers;
+using kursDB1.Models;
+
+namespace kursDB1.Views
+{
+    public partial class AddAlbumForm : Form
+    {
+        private readonly AdminController _adminController;
+
+        public AddAlbumForm()
+        {
+            InitializeComponent();
+            _adminController = new AdminController();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            var album = new Album
+            {
+                Name = txtName.Text,
+                CountArts = int.Parse(txtCountArts.Text),
+                DropDay = dtpDropDay.Value
+            };
+
+            _adminController.AddAlbum(album);
+            MessageBox.Show("Альбом добавлен!");
+            this.Close();
+        }
+    }
+}
