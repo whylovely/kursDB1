@@ -25,9 +25,9 @@ namespace kursDB1.Services
             _dbContext.SaveChanges();
         }
 
-        public void AddLabel(Label label)
+        public void AddLabel(MusicLabel musicLabel)
         {
-            _dbContext.Labels.Add(label);
+            _dbContext.MusicLabels.Add(musicLabel);
             _dbContext.SaveChanges();
         }
 

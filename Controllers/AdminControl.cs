@@ -22,9 +22,9 @@ namespace kursDB1.Controllers
             _adminService.AddAlbum(album);
         }
 
-        public void AddLabel(Label label)
+        public void AddLabel(MusicLabel musicLabel)
         {
-            _adminService.AddLabel(label);
+            _adminService.AddLabel(musicLabel);
         }
 
         public void AddStudio(Studio studio)

@@ -1,6 +1,6 @@
 ﻿namespace kursDB1.Models
 {
-    public class Label
+    public class MusicLabel
     {
         public int Id { get; set; }
         public string Name { get; set; }
