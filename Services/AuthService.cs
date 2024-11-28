@@ -30,5 +30,19 @@ namespace kursDB1.Services
             // Проверка пароля (например, через хеширование)
             return inputPassword == storedPassword; // Для упрощения
         }
+
+        public User Authenticate(string email, string password)
+        {
+            // Логика аутентификации пользователя, например, поиск в базе данных
+            var user = _dbContext.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
+            return user;
+        }
+
+        public void RegisterUser(User user)
+        {
+            // Логика регистрации пользователя
+            _dbContext.Users.Add(user);
+            _dbContext.SaveChanges();
+        }
     }
 }
