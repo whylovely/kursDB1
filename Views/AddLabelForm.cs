@@ -17,7 +17,7 @@ namespace kursDB1.Views
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            var label = new Label
+            var label = new MusicLabel
             {
                 Name = txtName.Text,
                 CountArts = int.Parse(txtCountArts.Text),

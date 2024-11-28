@@ -1,14 +1,20 @@
-﻿using System;
-using System.Windows.Forms;
-using kursDB1.Controllers;
+﻿using kursDB1.Controllers;
 using kursDB1.Models;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace kursDB1.Views
 {
     public partial class AddGenreForm : Form
     {
         private readonly AdminController _adminController;
-
         public AddGenreForm()
         {
             InitializeComponent();
@@ -26,5 +32,6 @@ namespace kursDB1.Views
             MessageBox.Show("Жанр добавлен!");
             this.Close();
         }
+
     }
 }
