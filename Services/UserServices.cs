@@ -2,6 +2,7 @@
 using System.Linq;
 using kursDB1.Models;
 using kursDB1.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace kursDB1.Services
 {
@@ -30,6 +31,26 @@ namespace kursDB1.Services
 
             _dbContext.Marks.Add(userMark);
             _dbContext.SaveChanges();
+        }
+        public List<Mark> GetUserMarks(int userId)
+        {
+            return _dbContext.Marks
+                .Where(m => m.UserId == userId)
+                .ToList(); // Извлекаем все оценки для данного пользователя
+        }
+
+        public void AddMark(int userId, int artId, int mark)
+        {
+            var markEntity = new Mark
+            {
+                UserId = userId,
+                ArtId = artId,
+                Value = mark
+            };
+
+            // Добавление записи оценки в базу данных
+            _dbContext.Marks.Add(markEntity);
+            _dbContext.SaveChanges(); // Сохранение изменений в базе данных
         }
     }
 }

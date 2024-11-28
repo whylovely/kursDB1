@@ -16,7 +16,7 @@ namespace kursDB1.Controllers
 
         public List<Art> GetArts()
         {
-            return _userService.GetAllArts();
+            return _userService.GetArts();
         }
 
         public void RateArt(int userId, int artId, int mark)
