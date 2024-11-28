@@ -19,39 +19,63 @@
         // Метод для инициализации компонентов
         private void InitializeComponent()
         {
-            this.btnLogin = new System.Windows.Forms.Button();
-            this.lblWelcome = new System.Windows.Forms.Label();
-            this.SuspendLayout();
+            btnLogin = new Button();
+            lblWelcome = new Label();
+            button1 = new Button();
+            SuspendLayout();
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(100, 100);
-            this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(75, 23);
-            this.btnLogin.TabIndex = 0;
-            this.btnLogin.Text = "Войти";
-            this.btnLogin.UseVisualStyleBackColor = true;
-            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
+            btnLogin.Location = new Point(100, 238);
+            btnLogin.Name = "btnLogin";
+            btnLogin.Size = new Size(75, 23);
+            btnLogin.TabIndex = 0;
+            btnLogin.Text = "Войти";
+            btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.Click += btnLogin_Click;
+            // 
+            // btnReg
+            // 
+            btnLogin.Location = new Point(100, 238);
+            btnLogin.Name = "btnAuth";
+            btnLogin.Size = new Size(75, 23);
+            btnLogin.TabIndex = 0;
+            btnLogin.Text = "Регистрация";
+            btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.Click += btnReg_Click;
             // 
             // lblWelcome
             // 
-            this.lblWelcome.AutoSize = true;
-            this.lblWelcome.Location = new System.Drawing.Point(100, 50);
-            this.lblWelcome.Name = "lblWelcome";
-            this.lblWelcome.Size = new System.Drawing.Size(180, 13);
-            this.lblWelcome.TabIndex = 1;
-            this.lblWelcome.Text = "Добро пожаловать в OnlineArtApp!";
+            lblWelcome.AutoSize = true;
+            lblWelcome.Location = new Point(162, 151);
+            lblWelcome.Name = "lblWelcome";
+            lblWelcome.Size = new Size(78, 15);
+            lblWelcome.TabIndex = 1;
+            lblWelcome.Text = "Привет Иван";
+            lblWelcome.Click += lblWelcome_Click;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(268, 238);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 2;
+            button1.Text = "Войти";
+            button1.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
-            this.ClientSize = new System.Drawing.Size(284, 161);
-            this.Controls.Add(this.lblWelcome);
-            this.Controls.Add(this.btnLogin);
-            this.Name = "MainForm";
-            this.Text = "Главная";
-            this.Load += new System.EventHandler(this.MainForm_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            ClientSize = new Size(552, 383);
+            Controls.Add(button1);
+            Controls.Add(lblWelcome);
+            Controls.Add(btnLogin);
+            Name = "MainForm";
+            Text = "Главная";
+            Load += MainForm_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
+
+        private Button button1;
     }
 }

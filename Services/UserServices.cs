@@ -15,6 +15,18 @@ namespace kursDB1.Services
             _dbContext = DbConnection.GetDbContext();
         }
 
+        public void AddUser(User user)
+        {
+            // Проверка на существование пользователя с таким же именем
+            if (_dbContext.Users.Any(u => u.Name == user.Name))
+            {
+                throw new Exception("Пользователь с таким именем уже существует.");
+            }
+
+            _dbContext.Users.Add(user);
+            _dbContext.SaveChanges();
+        }
+
         public List<Art> GetArts()
         {
             return _dbContext.Arts.ToList();

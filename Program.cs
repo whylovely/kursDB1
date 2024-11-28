@@ -19,19 +19,29 @@ namespace kursDB1
             Application.SetCompatibleTextRenderingDefault(false);
 
             // Запуск формы входа
-            Application.Run(new LoginForm());
+            Application.Run(new MainForm());
         }
 
         private static void InitializeDatabase()
         {
-            // Здесь добавьте строку подключения к базе данных
+            // Здесь добавьте строку подключения к уже существующей базе данных
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+
+            // Убедитесь, что строка подключения правильная для вашей существующей базы данных
             optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Username=postgres;Password=2005;Database=db1");
 
             using (var context = new AppDbContext(optionsBuilder.Options))
             {
-                // Можно добавить логику для создания базы данных или миграций, если они не существуют
-                context.Database.EnsureCreated();
+                // Проверка, подключение возможно
+                try
+                {
+                    context.Database.OpenConnection(); // Открывает соединение с базой данных
+                    Console.WriteLine("Подключение к базе данных успешно.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Ошибка подключения: {ex.Message}");
+                }
             }
         }
     }
