@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using kursDB1.Models;
 using kursDB1.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace kursDB1.Repositories
 {
@@ -11,12 +12,15 @@ namespace kursDB1.Repositories
 
         public MarkRepository()
         {
-            _dbContext = new AppDbContext();
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Username=postgres;Password=2005;Database=db1");
+
+            _dbContext = new AppDbContext(optionsBuilder.Options);
         }
 
         public List<Mark> GetMarksByArtId(int artId)
         {
-            return _dbContext.Marks.Where(m => m.IdArt == artId).ToList();
+            return _dbContext.Marks.Where(m => m.ArtId == artId).ToList();
         }
 
         public void Add(Mark mark)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using kursDB1.Models;
 using kursDB1.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace kursDB1.Repositories
 {
@@ -11,7 +12,10 @@ namespace kursDB1.Repositories
 
         public ArtRepository()
         {
-            _dbContext = new AppDbContext();
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Username=postgres;Password=2005;Database=db1");
+
+            _dbContext = new AppDbContext(optionsBuilder.Options);
         }
 
         public Art GetById(int artId)

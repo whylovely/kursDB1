@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using kursDB1.Models;
 using kursDB1.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace kursDB1.Repositories
 {
@@ -11,37 +12,40 @@ namespace kursDB1.Repositories
 
         public LabelRepository()
         {
-            _dbContext = new AppDbContext();
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Username=postgres;Password=2005;Database=db1");
+
+            _dbContext = new AppDbContext(optionsBuilder.Options);
         }
 
-        public Label GetById(int labelId)
+        public MusicLabel GetById(int labelId)
         {
-            return _dbContext.Labels.FirstOrDefault(l => l.Id == labelId);
+            return _dbContext.MusicLabels.FirstOrDefault(l => l.Id == labelId);
         }
 
-        public List<Label> GetAll()
+        public List<MusicLabel> GetAll()
         {
-            return _dbContext.Labels.ToList();
+            return _dbContext.MusicLabels.ToList();
         }
 
-        public void Add(Label label)
+        public void Add(MusicLabel label)
         {
-            _dbContext.Labels.Add(label);
+            _dbContext.MusicLabels.Add(label);
             _dbContext.SaveChanges();
         }
 
-        public void Update(Label label)
+        public void Update(MusicLabel label)
         {
-            _dbContext.Labels.Update(label);
+            _dbContext.MusicLabels.Update(label);
             _dbContext.SaveChanges();
         }
 
         public void Delete(int labelId)
         {
-            var label = _dbContext.Labels.Find(labelId);
+            var label = _dbContext.MusicLabels.Find(labelId);
             if (label != null)
             {
-                _dbContext.Labels.Remove(label);
+                _dbContext.MusicLabels.Remove(label);
                 _dbContext.SaveChanges();
             }
         }
