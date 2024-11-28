@@ -45,7 +45,7 @@ namespace kursDB1.Services
             {
                 UserId = userId,
                 ArtId = artId,
-                Value = mark
+                MarkValue = mark
             };
 
             // Добавление записи оценки в базу данных
