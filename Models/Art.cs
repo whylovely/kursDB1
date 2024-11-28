@@ -3,6 +3,7 @@
     public class Art
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public int AlbumId { get; set; }
         public int ArtistId { get; set; }
         public int DirectorId { get; set; }
