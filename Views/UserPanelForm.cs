@@ -1,6 +1,14 @@
-﻿using System;
+﻿using kursDB1.Controllers;
+using kursDB1.Models;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using kursDB1.Controllers;
 
 namespace kursDB1.Views
 {

@@ -1,4 +1,6 @@
 ﻿using kursDB1.Controllers;
+using kursDB1.Utils;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,7 +19,11 @@ namespace kursDB1.Views
         public AdminPanelForm()
         {
             InitializeComponent();
-            _adminController = new AdminController();
+
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Username=postgres;Password=2005;Database=db1");
+
+            _adminController = new AdminController(optionsBuilder.Options);
         }
 
         private void btnAddArt_Click(object sender, EventArgs e)

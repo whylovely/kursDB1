@@ -14,6 +14,7 @@ namespace kursDB1.Views
             _authController = new AuthController();
         }
 
+        // Обработчик события для кнопки входа
         private void btnLogin_Click(object sender, EventArgs e)
         {
             string email = txtEmail.Text;

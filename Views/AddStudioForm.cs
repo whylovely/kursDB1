@@ -2,6 +2,8 @@
 using System.Windows.Forms;
 using kursDB1.Controllers;
 using kursDB1.Models;
+using kursDB1.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace kursDB1.Views
 {
@@ -12,7 +14,11 @@ namespace kursDB1.Views
         public AddStudioForm()
         {
             InitializeComponent();
-            _adminController = new AdminController();
+
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Username=postgres;Password=2005;Database=db1");
+
+            _adminController = new AdminController(optionsBuilder.Options);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
