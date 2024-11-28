@@ -1,13 +1,23 @@
-﻿using System;
+﻿using kursDB1.Controllers;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace kursDB1.Views
 {
     public partial class AdminPanelForm : Form
     {
+        private readonly AdminController _adminController;
         public AdminPanelForm()
         {
             InitializeComponent();
+            _adminController = new AdminController();
         }
 
         private void btnAddArt_Click(object sender, EventArgs e)
@@ -15,7 +25,6 @@ namespace kursDB1.Views
             var addArtForm = new AddArtForm();
             addArtForm.ShowDialog();
         }
-
         private void btnAddAlbum_Click(object sender, EventArgs e)
         {
             var addAlbumForm = new AddAlbumForm();
@@ -50,7 +59,6 @@ namespace kursDB1.Views
         {
             MessageBox.Show("Вы вышли из системы.");
             this.Close();
-
             var loginForm = new LoginForm();
             loginForm.Show();
         }
@@ -59,5 +67,7 @@ namespace kursDB1.Views
         {
             lblWelcome.Text = "Добро пожаловать в панель администратора!";
         }
+
+
     }
 }
