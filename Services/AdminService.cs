@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using kursDB1.Models;
 using kursDB1.Utils;
+using Microsoft.EntityFrameworkCore;
 
 namespace kursDB1.Services
 {
@@ -8,9 +9,9 @@ namespace kursDB1.Services
     {
         private readonly AppDbContext _dbContext;
 
-        public AdminService()
+        public AdminService(DbContextOptions<AppDbContext> options)
         {
-            _dbContext = new AppDbContext();
+            _dbContext = new AppDbContext(options);
         }
 
         public void AddArt(Art art)

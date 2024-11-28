@@ -1,5 +1,7 @@
 ﻿using kursDB1.Services;
 using kursDB1.Models;
+using Microsoft.EntityFrameworkCore;
+using kursDB1.Utils;
 
 namespace kursDB1.Controllers
 {
@@ -7,9 +9,9 @@ namespace kursDB1.Controllers
     {
         private readonly AdminService _adminService;
 
-        public AdminController()
+        public AdminController(DbContextOptions<AppDbContext> options)
         {
-            _adminService = new AdminService();
+            _adminService = new AdminService(options);
         }
 
         public void AddArt(Art art)
