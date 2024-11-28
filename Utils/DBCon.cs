@@ -12,7 +12,7 @@ namespace kursDB1.Utils
         public static AppDbContext GetDbContext()
         {
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-            optionsBuilder.UseNpgsql(_connectionString); // Используем PostgreSQL, например
+            optionsBuilder.UseNpgsql(_connectionString); 
 
             return new AppDbContext(optionsBuilder.Options);
         }

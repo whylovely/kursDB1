@@ -11,7 +11,7 @@ namespace kursDB1.Services
 
         public UserService()
         {
-            _dbContext = new AppDbContext();
+            _dbContext = DbConnection.GetDbContext();
         }
 
         public List<Art> GetArts()
@@ -23,8 +23,8 @@ namespace kursDB1.Services
         {
             var userMark = new Mark
             {
-                IdUser = userId,
-                IdArt = artId,
+                UserId = userId,
+                ArtId = artId,
                 MarkValue = mark
             };
 

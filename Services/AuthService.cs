@@ -10,7 +10,7 @@ namespace kursDB1.Services
 
         public AuthService()
         {
-            _dbContext = new AppDbContext();
+            _dbContext = DbConnection.GetDbContext();
         }
 
         public User Login(string email, string password)
