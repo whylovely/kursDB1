@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Npgsql; // Для работы с PostgreSQL
 using kursDB1.Controllers;
 
 namespace kursDB1.Views
@@ -17,9 +18,17 @@ namespace kursDB1.Views
         // Обработчик события для кнопки входа
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string email = txtEmail.Text;
+            string email = txtEmail.Text.Trim();
             string password = txtPassword.Text;
 
+            // Проверка на заполненность полей
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Введите email и пароль.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Вызов метода аутентификации
             var user = _authController.Login(email, password);
 
             if (user != null)
@@ -41,7 +50,7 @@ namespace kursDB1.Views
             }
             else
             {
-                MessageBox.Show("Неверный email или пароль.");
+                MessageBox.Show("Неверный email или пароль.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

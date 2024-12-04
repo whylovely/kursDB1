@@ -6,8 +6,7 @@ namespace kursDB1.Utils
 {
     public static class DbConnection
     {
-        private static readonly string _connectionString = "Host=localhost;Port=5432;Username=postgres;Password=2005;Database=db1";
-        //  private static readonly string _connectionString = "Host=localhost;Port=5432;Username=postgres;Password=password123;Database=online_art_db";
+        private static readonly string _connectionString = "Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1";
 
         public static AppDbContext GetDbContext()
         {

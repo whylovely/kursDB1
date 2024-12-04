@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Windows.Forms;
+using Npgsql; // Для работы с PostgreSQL
 using kursDB1.Utils; // Для хэширования пароля
-using kursDB1.Models; // Для модели пользователя
-using kursDB1.Services; // Для сервиса добавления пользователя
 
 namespace kursDB1.Views
 {
     public partial class RegForm : Form
     {
-        private readonly UserService _userService;
+        // Строка подключения к базе данных PostgreSQL
+        private readonly string _connectionString = "Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1";
 
         public RegForm()
         {
             InitializeComponent();
-            _userService = new UserService(); // Инициализация UserService для работы с пользователями
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
@@ -50,30 +49,60 @@ namespace kursDB1.Views
 
             try
             {
-                // Создание нового пользователя
-                var user = new User
+                // Проверка существования пользователя с таким email или username
+                string checkQuery = "SELECT COUNT(*) FROM Users WHERE email = @email OR name = @name";
+                using (var connection = new Npgsql.NpgsqlConnection(_connectionString))
                 {
-                    Name = username,
-                    Email = email,
-                    Password = hashedPassword
-                };
+                    var command = new Npgsql.NpgsqlCommand(checkQuery, connection);
+                    command.Parameters.AddWithValue("email", email);
+                    command.Parameters.AddWithValue("@name", username);
 
-                // Добавление пользователя в базу данных через сервис
-                _userService.AddUser(user);
+                    connection.Open();
+                    int userCount = Convert.ToInt32(command.ExecuteScalar());
 
-                MessageBox.Show("Пользователь успешно зарегистрирован.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (userCount > 0)
+                    {
+                        MessageBox.Show("Пользователь с таким именем или email уже существует.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
 
-                // Открытие формы входа после регистрации
-                var loginForm = new LoginForm();
-                this.Hide(); // Скрыть форму регистрации
-                loginForm.ShowDialog();
-                this.Close();
+                // SQL-запрос для добавления пользователя
+                string query = "INSERT INTO Users (name, email, password) VALUES (@name, @email, @password)";
+
+                using (var connection = new Npgsql.NpgsqlConnection(_connectionString))
+                {
+                    var command = new Npgsql.NpgsqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@name", username);
+                    command.Parameters.AddWithValue("@email", email);
+                    command.Parameters.AddWithValue("@password", hashedPassword);
+
+                    connection.Open();
+                    int rowsAffected = command.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        MessageBox.Show("Пользователь успешно зарегистрирован.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Открытие формы входа после регистрации
+                        var loginForm = new LoginForm();
+                        this.Hide(); // Скрыть форму регистрации
+                        loginForm.ShowDialog();
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Не удалось зарегистрировать пользователя.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка при регистрации: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
 
         // Проверка формата email
         private bool IsValidEmail(string email)
@@ -91,7 +120,6 @@ namespace kursDB1.Views
 
         private void RegForm_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

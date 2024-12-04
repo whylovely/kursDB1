@@ -8,7 +8,7 @@ namespace kursDB1.Utils
         public AppDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-            optionsBuilder.UseSqlServer("Host=localhost;Port=5432;Username=postgres;Password=2005;Database=db1");
+            optionsBuilder.UseSqlServer("Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1");
 
             return new AppDbContext(optionsBuilder.Options);
         }

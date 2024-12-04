@@ -14,7 +14,7 @@ namespace kursDB1.Repositories
         public AlbumRepository()
         {
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Username=postgres;Password=2005;Database=db1");
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1");
 
             _dbContext = new AppDbContext(optionsBuilder.Options);
         }

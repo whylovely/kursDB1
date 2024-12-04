@@ -1,31 +1,62 @@
-﻿using kursDB1.Services;
+﻿using System;
+using Npgsql;
 using kursDB1.Models;
+using kursDB1.Utils;
 
 namespace kursDB1.Controllers
 {
     public class AuthController
     {
-        private readonly AuthService _authService;
+        // Строка подключения к базе данных PostgreSQL
+        private readonly string _connectionString = "Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1";
 
-        public AuthController()
-        {
-            _authService = new AuthService();
-        }
-
+        // Метод для аутентификации пользователя
         public User Login(string email, string password)
         {
-            return _authService.Authenticate(email, password);
-        }
-
-        public void Register(string name, string email, string password, int roleId)
-        {
-            _authService.RegisterUser(new User
+            try
             {
-                Name = name,
-                Email = email,
-                Password = password,
-                RoleId = roleId
-            });
+                using (var connection = new NpgsqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    string query = "SELECT id, name, email, password, role_id FROM Users WHERE email = @email";
+                    using (var command = new NpgsqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@email", email);
+
+                        using (var reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                // Получение данных из базы
+                                int id = reader.GetInt32(0);
+                                string name = reader.GetString(1);
+                                string storedPassword = reader.GetString(3);
+                                int roleId = reader.GetInt32(4);
+
+                                // Проверка пароля
+                                if (PasswordHasher.VerifyPassword(password, storedPassword))
+                                {
+                                    return new User
+                                    {
+                                        Id = id,
+                                        Name = name,
+                                        Email = email,
+                                        RoleId = roleId
+                                    };
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Логирование ошибки
+                Console.WriteLine(ex.Message);
+            }
+
+            // Если пользователь не найден или пароль неверен
+            return null;
         }
     }
 }
