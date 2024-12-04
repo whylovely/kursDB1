@@ -26,28 +26,18 @@
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(100, 238);
+            btnLogin.Location = new Point(285, 229);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(75, 23);
+            btnLogin.Size = new Size(100, 23);
             btnLogin.TabIndex = 0;
             btnLogin.Text = "Войти";
             btnLogin.UseVisualStyleBackColor = true;
             btnLogin.Click += btnLogin_Click;
             // 
-            // btnReg
-            // 
-            btnLogin.Location = new Point(100, 238);
-            btnLogin.Name = "btnAuth";
-            btnLogin.Size = new Size(75, 23);
-            btnLogin.TabIndex = 0;
-            btnLogin.Text = "Регистрация";
-            btnLogin.UseVisualStyleBackColor = true;
-            btnLogin.Click += btnReg_Click;
-            // 
             // lblWelcome
             // 
             lblWelcome.AutoSize = true;
-            lblWelcome.Location = new Point(162, 151);
+            lblWelcome.Location = new Point(222, 140);
             lblWelcome.Name = "lblWelcome";
             lblWelcome.Size = new Size(78, 15);
             lblWelcome.TabIndex = 1;
@@ -56,12 +46,13 @@
             // 
             // button1
             // 
-            button1.Location = new Point(268, 238);
+            button1.Location = new Point(90, 229);
             button1.Name = "button1";
-            button1.Size = new Size(75, 23);
+            button1.Size = new Size(100, 23);
             button1.TabIndex = 2;
-            button1.Text = "Войти";
+            button1.Text = "Регистрация";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += btnReg_Click;
             // 
             // MainForm
             // 

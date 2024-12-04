@@ -10,6 +10,8 @@
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.Label lblConfirmPassword;
         private System.Windows.Forms.Button btnRegister;
+        private System.Windows.Forms.Label lblEmail;
+        private System.Windows.Forms.TextBox txtEmail;
 
         protected override void Dispose(bool disposing)
         {
@@ -22,82 +24,110 @@
 
         private void InitializeComponent()
         {
-            this.txtUsername = new System.Windows.Forms.TextBox();
-            this.txtPassword = new System.Windows.Forms.TextBox();
-            this.txtConfirmPassword = new System.Windows.Forms.TextBox();
-            this.lblUsername = new System.Windows.Forms.Label();
-            this.lblPassword = new System.Windows.Forms.Label();
-            this.lblConfirmPassword = new System.Windows.Forms.Label();
-            this.btnRegister = new System.Windows.Forms.Button();
-
-            this.SuspendLayout();
-
+            txtEmail = new TextBox();
+            lblEmail = new Label();
+            txtUsername = new TextBox();
+            txtPassword = new TextBox();
+            txtConfirmPassword = new TextBox();
+            lblUsername = new Label();
+            lblPassword = new Label();
+            lblConfirmPassword = new Label();
+            btnRegister = new Button();
+            SuspendLayout();
+            // 
+            // txtEmail
+            // 
+            txtEmail.Location = new Point(150, 67);
+            txtEmail.Name = "txtEmail";
+            txtEmail.Size = new Size(200, 23);
+            txtEmail.TabIndex = 1;
+            // 
+            // lblEmail
+            // 
+            lblEmail.AutoSize = true;
+            lblEmail.Location = new Point(30, 67);
+            lblEmail.Name = "lblEmail";
+            lblEmail.Size = new Size(116, 15);
+            lblEmail.TabIndex = 4;
+            lblEmail.Text = "Электронная почта:";
+            // 
             // txtUsername
-            this.txtUsername.Location = new System.Drawing.Point(150, 30);
-            this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(200, 20);
-            this.txtUsername.TabIndex = 0;
-
+            // 
+            txtUsername.Location = new Point(150, 30);
+            txtUsername.Name = "txtUsername";
+            txtUsername.Size = new Size(200, 23);
+            txtUsername.TabIndex = 0;
+            // 
             // txtPassword
-            this.txtPassword.Location = new System.Drawing.Point(150, 70);
-            this.txtPassword.Name = "txtPassword";
-            this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(200, 20);
-            this.txtPassword.TabIndex = 1;
-
+            // 
+            txtPassword.Location = new Point(150, 101);
+            txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '*';
+            txtPassword.Size = new Size(200, 23);
+            txtPassword.TabIndex = 1;
+            // 
             // txtConfirmPassword
-            this.txtConfirmPassword.Location = new System.Drawing.Point(150, 110);
-            this.txtConfirmPassword.Name = "txtConfirmPassword";
-            this.txtConfirmPassword.PasswordChar = '*';
-            this.txtConfirmPassword.Size = new System.Drawing.Size(200, 20);
-            this.txtConfirmPassword.TabIndex = 2;
-
+            // 
+            txtConfirmPassword.Location = new Point(150, 135);
+            txtConfirmPassword.Name = "txtConfirmPassword";
+            txtConfirmPassword.PasswordChar = '*';
+            txtConfirmPassword.Size = new Size(200, 23);
+            txtConfirmPassword.TabIndex = 2;
+            // 
             // lblUsername
-            this.lblUsername.AutoSize = true;
-            this.lblUsername.Location = new System.Drawing.Point(30, 30);
-            this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(113, 13);
-            this.lblUsername.TabIndex = 3;
-            this.lblUsername.Text = "Имя пользователя:";
-
+            // 
+            lblUsername.AutoSize = true;
+            lblUsername.Location = new Point(30, 30);
+            lblUsername.Name = "lblUsername";
+            lblUsername.Size = new Size(112, 15);
+            lblUsername.TabIndex = 3;
+            lblUsername.Text = "Имя пользователя:";
+            // 
             // lblPassword
-            this.lblPassword.AutoSize = true;
-            this.lblPassword.Location = new System.Drawing.Point(30, 70);
-            this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(51, 13);
-            this.lblPassword.TabIndex = 4;
-            this.lblPassword.Text = "Пароль:";
-
+            // 
+            lblPassword.AutoSize = true;
+            lblPassword.Location = new Point(30, 101);
+            lblPassword.Name = "lblPassword";
+            lblPassword.Size = new Size(52, 15);
+            lblPassword.TabIndex = 4;
+            lblPassword.Text = "Пароль:";
+            // 
             // lblConfirmPassword
-            this.lblConfirmPassword.AutoSize = true;
-            this.lblConfirmPassword.Location = new System.Drawing.Point(30, 110);
-            this.lblConfirmPassword.Name = "lblConfirmPassword";
-            this.lblConfirmPassword.Size = new System.Drawing.Size(119, 13);
-            this.lblConfirmPassword.TabIndex = 5;
-            this.lblConfirmPassword.Text = "Подтвердите пароль:";
-
+            // 
+            lblConfirmPassword.AutoSize = true;
+            lblConfirmPassword.Location = new Point(30, 138);
+            lblConfirmPassword.Name = "lblConfirmPassword";
+            lblConfirmPassword.Size = new Size(123, 15);
+            lblConfirmPassword.TabIndex = 5;
+            lblConfirmPassword.Text = "Подтвердите пароль:";
+            // 
             // btnRegister
-            this.btnRegister.Location = new System.Drawing.Point(150, 150);
-            this.btnRegister.Name = "btnRegister";
-            this.btnRegister.Size = new System.Drawing.Size(200, 30);
-            this.btnRegister.TabIndex = 6;
-            this.btnRegister.Text = "Зарегистрироваться";
-            this.btnRegister.UseVisualStyleBackColor = true;
-            this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
-
+            // 
+            btnRegister.Location = new Point(82, 173);
+            btnRegister.Name = "btnRegister";
+            btnRegister.Size = new Size(200, 30);
+            btnRegister.TabIndex = 6;
+            btnRegister.Text = "Зарегистрироваться";
+            btnRegister.UseVisualStyleBackColor = true;
+            btnRegister.Click += btnRegister_Click;
+            // 
             // RegForm
-            this.ClientSize = new System.Drawing.Size(400, 200);
-            this.Controls.Add(this.txtUsername);
-            this.Controls.Add(this.txtPassword);
-            this.Controls.Add(this.txtConfirmPassword);
-            this.Controls.Add(this.lblUsername);
-            this.Controls.Add(this.lblPassword);
-            this.Controls.Add(this.lblConfirmPassword);
-            this.Controls.Add(this.btnRegister);
-            this.Name = "RegForm";
-            this.Text = "Регистрация пользователя";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            // 
+            ClientSize = new Size(400, 240);
+            Controls.Add(lblEmail);
+            Controls.Add(txtEmail);
+            Controls.Add(txtUsername);
+            Controls.Add(txtPassword);
+            Controls.Add(txtConfirmPassword);
+            Controls.Add(lblUsername);
+            Controls.Add(lblPassword);
+            Controls.Add(lblConfirmPassword);
+            Controls.Add(btnRegister);
+            Name = "RegForm";
+            Text = "Регистрация пользователя";
+            Load += RegForm_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
     }
 }

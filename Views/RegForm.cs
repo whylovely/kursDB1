@@ -19,8 +19,24 @@ namespace kursDB1.Views
         private void btnRegister_Click(object sender, EventArgs e)
         {
             string username = txtUsername.Text.Trim();
+            string email = txtEmail.Text.Trim();
             string password = txtPassword.Text;
             string confirmPassword = txtConfirmPassword.Text;
+
+            // Проверка на заполненность полей
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(email) ||
+                string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(confirmPassword))
+            {
+                MessageBox.Show("Все поля должны быть заполнены.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Проверка формата почты
+            if (!IsValidEmail(email))
+            {
+                MessageBox.Show("Некорректный формат электронной почты.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             // Проверка, чтобы оба пароля совпадали
             if (password != confirmPassword)
@@ -38,6 +54,7 @@ namespace kursDB1.Views
                 var user = new User
                 {
                     Name = username,
+                    Email = email,
                     Password = hashedPassword
                 };
 
@@ -56,6 +73,25 @@ namespace kursDB1.Views
             {
                 MessageBox.Show($"Ошибка при регистрации: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        // Проверка формата email
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void RegForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -1,8 +1,9 @@
 using System;
 using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
-using kursDB1.Utils;
-using kursDB1.Views;
+using Microsoft.Extensions.DependencyInjection;
+using kursDB1.Utils;  // Ваш DbContext
+using kursDB1.Views;  // Ваши формы
 
 namespace kursDB1
 {
@@ -11,38 +12,20 @@ namespace kursDB1
         [STAThread]
         static void Main()
         {
-            // Инициализация и настройка базы данных
-            InitializeDatabase();
+            // Настройка сервисов, включая DbContext
+            var services = new ServiceCollection();
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer("Server=localhost;Database=db1;Trusted_Connection=True;"));
 
-            // Настройка стиля приложения
+            // Регистрируем формы и другие сервисы
+            services.AddSingleton<MainForm>();
+
+            var serviceProvider = services.BuildServiceProvider();
+
+            // Запуск формы
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            // Запуск формы входа
-            Application.Run(new MainForm());
-        }
-
-        private static void InitializeDatabase()
-        {
-            // Здесь добавьте строку подключения к уже существующей базе данных
-            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-
-            // Убедитесь, что строка подключения правильная для вашей существующей базы данных
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Username=postgres;Password=2005;Database=db1");
-
-            using (var context = new AppDbContext(optionsBuilder.Options))
-            {
-                // Проверка, подключение возможно
-                try
-                {
-                    context.Database.OpenConnection(); // Открывает соединение с базой данных
-                    Console.WriteLine("Подключение к базе данных успешно.");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Ошибка подключения: {ex.Message}");
-                }
-            }
+            Application.Run(serviceProvider.GetRequiredService<MainForm>());
         }
     }
 }
