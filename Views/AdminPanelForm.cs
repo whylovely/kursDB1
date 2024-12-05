@@ -16,6 +16,7 @@ namespace kursDB1.Views
     public partial class AdminPanelForm : Form
     {
         private readonly AdminController _adminController;
+
         public AdminPanelForm()
         {
             InitializeComponent();
@@ -31,6 +32,7 @@ namespace kursDB1.Views
             var addArtForm = new AddArtForm();
             addArtForm.ShowDialog();
         }
+
         private void btnAddAlbum_Click(object sender, EventArgs e)
         {
             var addAlbumForm = new AddAlbumForm();
@@ -61,6 +63,12 @@ namespace kursDB1.Views
             addGenreForm.ShowDialog();
         }
 
+        private void btnAddArtist_Click(object sender, EventArgs e)
+        {
+            var addArtistForm = new AddArtistForm(); // Открытие формы для добавления артиста
+            addArtistForm.ShowDialog();
+        }
+
         private void btnLogout_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Вы вышли из системы.");
@@ -74,6 +82,9 @@ namespace kursDB1.Views
             lblWelcome.Text = "Добро пожаловать в панель администратора!";
         }
 
+        private void lblWelcome_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }
