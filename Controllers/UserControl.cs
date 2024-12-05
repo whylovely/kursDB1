@@ -21,7 +21,7 @@ namespace kursDB1.Controllers
 
         public void RateArt(int userId, int artId, int mark)
         {
-            _userService.AddMark(userId, artId, mark);
+            _userService.RateArt(userId, artId, mark);
         }
 
         public List<Mark> GetUserMarks(int userId)

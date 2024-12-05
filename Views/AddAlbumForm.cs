@@ -1,39 +1,71 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
-using kursDB1.Controllers;
-using kursDB1.Models;
-using kursDB1.Utils;
-using Microsoft.EntityFrameworkCore;
+using Npgsql; // Для работы с PostgreSQL
 
 namespace kursDB1.Views
 {
     public partial class AddAlbumForm : Form
     {
-        private readonly AdminController _adminController;
+        // Строка подключения к базе данных PostgreSQL
+        private readonly string _connectionString = "Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1";
 
         public AddAlbumForm()
         {
             InitializeComponent();
-
-            // Создаем DbContextOptions для передачи в AdminController
-            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1");
-
-            _adminController = new AdminController(optionsBuilder.Options);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            var album = new Album
-            {
-                Name = txtName.Text,
-                CountArts = int.Parse(txtCountArts.Text),
-                DropDay = dtpDropDay.Value
-            };
+            string name = txtName.Text.Trim();
+            string countArtsText = txtCountArts.Text.Trim();
+            DateTime dropDay = dtpDropDay.Value;
 
-            _adminController.AddAlbum(album);
-            MessageBox.Show("Альбом добавлен!");
-            this.Close();
+            // Проверка на валидность введенных данных
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(countArtsText) || !int.TryParse(countArtsText, out int countArts))
+            {
+                MessageBox.Show("Пожалуйста, заполните все поля корректно.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                using (var connection = new NpgsqlConnection(_connectionString))
+                {
+                    // SQL-запрос для добавления альбома
+                    string query = $"INSERT INTO Albums (name, count_arts, drop_day) VALUES ('{name}', '{countArts}', {dropDay})";
+
+                    using (var command = new NpgsqlCommand(query, connection))
+                    {
+                        // Параметры для предотвращения SQL-инъекций
+                        command.Parameters.AddWithValue("@name", name);
+                        command.Parameters.AddWithValue("@countArts", countArts);
+                        command.Parameters.AddWithValue("@dropDay", dropDay);
+
+                        // Открытие соединения и выполнение команды
+                        connection.Open();
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Альбом успешно добавлен!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Не удалось добавить альбом.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при добавлении альбома: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AddAlbumForm_Load(object sender, EventArgs e)
+        {
         }
     }
 }

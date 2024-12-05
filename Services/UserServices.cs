@@ -1,68 +1,95 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using Npgsql; // Для работы с PostgreSQL
 using kursDB1.Models;
-using kursDB1.Utils;
-using Microsoft.EntityFrameworkCore;
 
 namespace kursDB1.Services
 {
     public class UserService
     {
-        private readonly AppDbContext _dbContext;
+        private readonly string _connectionString;
 
         public UserService()
         {
-            _dbContext = DbConnection.GetDbContext();
-        }
-
-        public void AddUser(User user)
-        {
-            // Проверка на существование пользователя с таким же именем
-            if (_dbContext.Users.Any(u => u.Name == user.Name))
-            {
-                throw new Exception("Пользователь с таким именем уже существует.");
-            }
-
-            _dbContext.Users.Add(user);
-            _dbContext.SaveChanges();
+            // Строка подключения к базе данных
+            _connectionString = "Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1";
         }
 
         public List<Art> GetArts()
         {
-            return _dbContext.Arts.ToList();
+            var arts = new List<Art>();
+
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT id, name, id_genre FROM Arts";
+                using (var command = new NpgsqlCommand(query, connection))
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        arts.Add(new Art
+                        {
+                            Id = reader.GetInt32(0),
+                            Name = reader.GetString(1),
+                            GenreId = reader.GetInt32(0)
+                        });
+                    }
+                }
+            }
+
+            return arts;
         }
 
         public void RateArt(int userId, int artId, int mark)
         {
-            var userMark = new Mark
+            using (var connection = new NpgsqlConnection(_connectionString))
             {
-                UserId = userId,
-                ArtId = artId,
-                MarkValue = mark
-            };
+                connection.Open();
 
-            _dbContext.Marks.Add(userMark);
-            _dbContext.SaveChanges();
+                string query = $"INSERT INTO Marks (id_user, id_art, mark, created_at) VALUES ('{userId}', '{artId}', '{mark}', '{DateTime.Now}')";
+                using (var command = new NpgsqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@userId", userId);
+                    command.Parameters.AddWithValue("@artId", artId);
+                    command.Parameters.AddWithValue("@mark", mark);
+                    command.Parameters.AddWithValue("@addedDate", DateTime.Now); // Устанавливаем текущую дату и время
+
+                    command.ExecuteNonQuery();
+                }
+            }
         }
+
         public List<Mark> GetUserMarks(int userId)
         {
-            return _dbContext.Marks
-                .Where(m => m.UserId == userId)
-                .ToList(); // Извлекаем все оценки для данного пользователя
-        }
+            var marks = new List<Mark>();
 
-        public void AddMark(int userId, int artId, int mark)
-        {
-            var markEntity = new Mark
+            using (var connection = new NpgsqlConnection(_connectionString))
             {
-                UserId = userId,
-                ArtId = artId,
-                MarkValue = mark
-            };
+                connection.Open();
 
-            // Добавление записи оценки в базу данных
-            _dbContext.Marks.Add(markEntity);
-            _dbContext.SaveChanges(); // Сохранение изменений в базе данных
+                string query = $"SELECT id_art, mark FROM Marks WHERE user_id = '{userId}'";
+                using (var command = new NpgsqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@userId", userId);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            marks.Add(new Mark
+                            {
+                                ArtId = reader.GetInt32(0),
+                                MarkValue = reader.GetInt32(1)
+                            });
+                        }
+                    }
+                }
+            }
+
+            return marks;
         }
     }
 }

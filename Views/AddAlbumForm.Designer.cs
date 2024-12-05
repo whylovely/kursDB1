@@ -9,50 +9,57 @@
 
         private void InitializeComponent()
         {
-            this.txtName = new System.Windows.Forms.TextBox();
-            this.txtCountArts = new System.Windows.Forms.TextBox();
-            this.dtpDropDay = new System.Windows.Forms.DateTimePicker();
-            this.btnSave = new System.Windows.Forms.Button();
-
-            this.SuspendLayout();
-
+            txtName = new TextBox();
+            txtCountArts = new TextBox();
+            dtpDropDay = new DateTimePicker();
+            btnSave = new Button();
+            SuspendLayout();
+            // 
             // txtName
-            this.txtName.Location = new System.Drawing.Point(12, 12);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(200, 22);
-            this.txtName.TabIndex = 0;
-
+            // 
+            txtName.Location = new Point(12, 12);
+            txtName.Name = "txtName";
+            txtName.Size = new Size(200, 23);
+            txtName.TabIndex = 0;
+            txtName.Text = "Название";
+            // 
             // txtCountArts
-            this.txtCountArts.Location = new System.Drawing.Point(12, 40);
-            this.txtCountArts.Name = "txtCountArts";
-            this.txtCountArts.Size = new System.Drawing.Size(200, 22);
-            this.txtCountArts.TabIndex = 1;
-
+            // 
+            txtCountArts.Location = new Point(12, 41);
+            txtCountArts.Name = "txtCountArts";
+            txtCountArts.Size = new Size(200, 23);
+            txtCountArts.TabIndex = 1;
+            txtCountArts.Text = "Количество произведений";
+            // 
             // dtpDropDay
-            this.dtpDropDay.Location = new System.Drawing.Point(12, 68);
-            this.dtpDropDay.Name = "dtpDropDay";
-            this.dtpDropDay.Size = new System.Drawing.Size(200, 22);
-            this.dtpDropDay.TabIndex = 2;
-
+            // 
+            dtpDropDay.Location = new Point(12, 69);
+            dtpDropDay.Name = "dtpDropDay";
+            dtpDropDay.Size = new Size(200, 23);
+            dtpDropDay.TabIndex = 2;
+            // 
             // btnSave
-            this.btnSave.Location = new System.Drawing.Point(12, 96);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(200, 23);
-            this.btnSave.TabIndex = 3;
-            this.btnSave.Text = "Сохранить";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-
+            // 
+            btnSave.Location = new Point(12, 97);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(200, 23);
+            btnSave.TabIndex = 3;
+            btnSave.Text = "Сохранить";
+            btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
+            // 
             // AddAlbumForm
-            this.ClientSize = new System.Drawing.Size(284, 131);
-            this.Controls.Add(this.txtName);
-            this.Controls.Add(this.txtCountArts);
-            this.Controls.Add(this.dtpDropDay);
-            this.Controls.Add(this.btnSave);
-            this.Name = "AddAlbumForm";
-            this.Text = "Добавить Альбом";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            // 
+            ClientSize = new Size(232, 137);
+            Controls.Add(txtName);
+            Controls.Add(txtCountArts);
+            Controls.Add(dtpDropDay);
+            Controls.Add(btnSave);
+            Name = "AddAlbumForm";
+            Text = "Добавить Альбом";
+            Load += AddAlbumForm_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
     }
 }
