@@ -68,7 +68,12 @@ namespace kursDB1.Views
             var addArtistForm = new AddArtistForm(); // Открытие формы для добавления артиста
             addArtistForm.ShowDialog();
         }
-
+     
+        private void btnGenerateReport_Click(object sender, EventArgs e)
+        {
+            var reportForm = new ReportSelectionForm();
+            reportForm.ShowDialog();
+        }
         private void btnLogout_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Вы вышли из системы.");
