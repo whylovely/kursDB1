@@ -1,38 +1,56 @@
 ﻿using System;
 using System.Windows.Forms;
-using kursDB1.Controllers;
-using kursDB1.Models;
-using kursDB1.Utils;
-using Microsoft.EntityFrameworkCore;
+using Npgsql; // Для работы с PostgreSQL
 
 namespace kursDB1.Views
 {
     public partial class AddStudioForm : Form
     {
-        private readonly AdminController _adminController;
-
         public AddStudioForm()
         {
             InitializeComponent();
-
-            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1");
-
-            _adminController = new AdminController(optionsBuilder.Options);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            var studio = new Studio
+            try
             {
-                Name = txtName.Text,
-                CountArts = int.Parse(txtCountArts.Text),
-                BDay = dtpBDay.Value
-            };
+                // Получаем данные из формы
+                string Name = txtName.Text;
+                DateTime BDay = dtpBDay.Value;
 
-            _adminController.AddStudio(studio);
-            MessageBox.Show("Студия добавлена!");
-            this.Close();
+                // SQL-запрос для добавления студии в базу данных
+                string query = $"INSERT INTO studios (name, b_day) VALUES ('{Name}', {BDay})";
+
+                // Строка подключения к базе данных
+                string connectionString = "Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1";
+
+                // Открываем подключение к базе данных
+                using (var connection = new NpgsqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Создаем команду для выполнения SQL-запроса
+                    using (var command = new NpgsqlCommand(query, connection))
+                    {
+                        // Добавляем параметры для защиты от SQL-инъекций
+                        command.Parameters.AddWithValue("@Name", Name);
+                        command.Parameters.AddWithValue("@BDay", BDay);
+
+                        // Выполняем команду
+                        command.ExecuteNonQuery();
+                    }
+                }
+
+                // Уведомляем пользователя о успешном добавлении студии
+                MessageBox.Show("Студия добавлена!");
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                // Обработка ошибок
+                MessageBox.Show($"Ошибка при добавлении студии: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

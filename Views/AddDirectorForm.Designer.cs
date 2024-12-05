@@ -7,33 +7,37 @@
 
         private void InitializeComponent()
         {
-            this.txtName = new System.Windows.Forms.TextBox();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-
+            txtName = new TextBox();
+            btnSave = new Button();
+            SuspendLayout();
+            // 
             // txtName
-            this.txtName.Location = new System.Drawing.Point(12, 12);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(200, 22);
-            this.txtName.TabIndex = 0;
-
+            // 
+            txtName.Location = new Point(12, 12);
+            txtName.Name = "txtName";
+            txtName.Size = new Size(228, 23);
+            txtName.TabIndex = 0;
+            txtName.Text = "Имя";
+            // 
             // btnSave
-            this.btnSave.Location = new System.Drawing.Point(12, 40);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(200, 23);
-            this.btnSave.TabIndex = 1;
-            this.btnSave.Text = "Сохранить";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-
+            // 
+            btnSave.Location = new Point(12, 40);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(228, 23);
+            btnSave.TabIndex = 1;
+            btnSave.Text = "Сохранить";
+            btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
+            // 
             // AddDirectorForm
-            this.ClientSize = new System.Drawing.Size(284, 81);
-            this.Controls.Add(this.txtName);
-            this.Controls.Add(this.btnSave);
-            this.Name = "AddDirectorForm";
-            this.Text = "Добавить режиссера";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            // 
+            ClientSize = new Size(252, 81);
+            Controls.Add(txtName);
+            Controls.Add(btnSave);
+            Name = "AddDirectorForm";
+            Text = "Добавить режиссера";
+            ResumeLayout(false);
+            PerformLayout();
         }
     }
 }
