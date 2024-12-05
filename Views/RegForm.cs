@@ -50,12 +50,12 @@ namespace kursDB1.Views
             try
             {
                 // Проверка существования пользователя с таким email или username
-                string checkQuery = "SELECT COUNT(*) FROM Users WHERE email = @email OR name = @name";
+                string checkQuery = $"SELECT COUNT(*) FROM Users WHERE email = '{email}' OR name = '{username}'";
                 using (var connection = new Npgsql.NpgsqlConnection(_connectionString))
                 {
                     var command = new Npgsql.NpgsqlCommand(checkQuery, connection);
-                    command.Parameters.AddWithValue("email", email);
-                    command.Parameters.AddWithValue("@name", username);
+                    command.Parameters.AddWithValue("@Email", email);
+                    command.Parameters.AddWithValue("@Name", username);
 
                     connection.Open();
                     int userCount = Convert.ToInt32(command.ExecuteScalar());
@@ -68,14 +68,14 @@ namespace kursDB1.Views
                 }
 
                 // SQL-запрос для добавления пользователя
-                string query = "INSERT INTO Users (name, email, password) VALUES (@name, @email, @password)";
+                string query = $"INSERT INTO Users (name, email, password, role_id) VALUES ('{username}', '{email}', '{password}', 2)";
 
                 using (var connection = new Npgsql.NpgsqlConnection(_connectionString))
                 {
                     var command = new Npgsql.NpgsqlCommand(query, connection);
-                    command.Parameters.AddWithValue("@name", username);
-                    command.Parameters.AddWithValue("@email", email);
-                    command.Parameters.AddWithValue("@password", hashedPassword);
+                    command.Parameters.AddWithValue("@Name", username);
+                    command.Parameters.AddWithValue("@Email", email);
+                    command.Parameters.AddWithValue("@Password", password);
 
                     connection.Open();
                     int rowsAffected = command.ExecuteNonQuery();

@@ -34,7 +34,7 @@ namespace kursDB1.Controllers
                                 int roleId = reader.GetInt32(4);
 
                                 // Проверка пароля
-                                if (PasswordHasher.VerifyPassword(password, storedPassword))
+                                if (password == storedPassword)
                                 {
                                     return new User
                                     {
