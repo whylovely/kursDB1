@@ -26,7 +26,7 @@
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(285, 229);
+            btnLogin.Location = new Point(131, 27);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(100, 23);
             btnLogin.TabIndex = 0;
@@ -37,16 +37,16 @@
             // lblWelcome
             // 
             lblWelcome.AutoSize = true;
-            lblWelcome.Location = new Point(222, 140);
+            lblWelcome.Location = new Point(18, 9);
             lblWelcome.Name = "lblWelcome";
-            lblWelcome.Size = new Size(78, 15);
+            lblWelcome.Size = new Size(213, 15);
             lblWelcome.TabIndex = 1;
-            lblWelcome.Text = "Привет Иван";
+            lblWelcome.Text = "Приветсвую вас в медийном сервисе";
             lblWelcome.Click += lblWelcome_Click;
             // 
             // button1
             // 
-            button1.Location = new Point(90, 229);
+            button1.Location = new Point(12, 27);
             button1.Name = "button1";
             button1.Size = new Size(100, 23);
             button1.TabIndex = 2;
@@ -56,7 +56,7 @@
             // 
             // MainForm
             // 
-            ClientSize = new Size(552, 383);
+            ClientSize = new Size(245, 66);
             Controls.Add(button1);
             Controls.Add(lblWelcome);
             Controls.Add(btnLogin);

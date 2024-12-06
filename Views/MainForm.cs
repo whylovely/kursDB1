@@ -28,7 +28,7 @@ namespace kursDB1.Views
         private void MainForm_Load(object sender, EventArgs e)
         {
             // Установить текст для метки
-            lblWelcome.Text = "Привет Иван";
+            lblWelcome.Text = "Приветсвую вас в медийном сервисе";
         }
 
         private void lblWelcome_Click(object sender, EventArgs e)
