@@ -4,9 +4,10 @@
     {
         private System.ComponentModel.IContainer components = null;
 
+        // Кнопки для формы
+        private System.Windows.Forms.Button btnReportUserRating;
         private System.Windows.Forms.Button btnReportArt;
         private System.Windows.Forms.Button btnReportGenre;
-        private System.Windows.Forms.Button btnReportUserRating;
 
         protected override void Dispose(bool disposing)
         {
@@ -19,50 +20,56 @@
 
         private void InitializeComponent()
         {
-            btnReportArt = new Button();
-            btnReportGenre = new Button();
-            btnReportUserRating = new Button();
-            SuspendLayout();
-            // 
-            // btnReportArt
-            // 
-            btnReportArt.Location = new Point(12, 22);
-            btnReportArt.Name = "btnReportArt";
-            btnReportArt.Size = new Size(200, 40);
-            btnReportArt.TabIndex = 0;
-            btnReportArt.Text = "Отчёт о произведениях";
-            btnReportArt.UseVisualStyleBackColor = true;
-            btnReportArt.Click += btnReportArt_Click;
-            // 
-            // btnReportGenre
-            // 
-            btnReportGenre.Location = new Point(12, 72);
-            btnReportGenre.Name = "btnReportGenre";
-            btnReportGenre.Size = new Size(200, 40);
-            btnReportGenre.TabIndex = 1;
-            btnReportGenre.Text = "Отчёт по жанрам";
-            btnReportGenre.UseVisualStyleBackColor = true;
-            btnReportGenre.Click += btnReportGenre_Click;
+            this.btnReportUserRating = new System.Windows.Forms.Button();
+            this.btnReportArt = new System.Windows.Forms.Button();
+            this.btnReportGenre = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+
             // 
             // btnReportUserRating
             // 
-            btnReportUserRating.Location = new Point(12, 122);
-            btnReportUserRating.Name = "btnReportUserRating";
-            btnReportUserRating.Size = new Size(200, 40);
-            btnReportUserRating.TabIndex = 2;
-            btnReportUserRating.Text = "Отчёт о рейтинге пользователей";
-            btnReportUserRating.UseVisualStyleBackColor = true;
-            btnReportUserRating.Click += btnReportUserRating_Click;
+            this.btnReportUserRating.Location = new System.Drawing.Point(50, 30);
+            this.btnReportUserRating.Name = "btnReportUserRating";
+            this.btnReportUserRating.Size = new System.Drawing.Size(200, 40);
+            this.btnReportUserRating.TabIndex = 0;
+            this.btnReportUserRating.Text = "Отчет по пользователям";
+            this.btnReportUserRating.UseVisualStyleBackColor = true;
+            this.btnReportUserRating.Click += new System.EventHandler(this.btnReportUserRating_Click);
+
+            // 
+            // btnReportArt
+            // 
+            this.btnReportArt.Location = new System.Drawing.Point(50, 90);
+            this.btnReportArt.Name = "btnReportArt";
+            this.btnReportArt.Size = new System.Drawing.Size(200, 40);
+            this.btnReportArt.TabIndex = 1;
+            this.btnReportArt.Text = "Отчет о произведениях";
+            this.btnReportArt.UseVisualStyleBackColor = true;
+            this.btnReportArt.Click += new System.EventHandler(this.btnReportArt_Click);
+
+            // 
+            // btnReportGenre
+            // 
+            this.btnReportGenre.Location = new System.Drawing.Point(50, 150);
+            this.btnReportGenre.Name = "btnReportGenre";
+            this.btnReportGenre.Size = new System.Drawing.Size(200, 40);
+            this.btnReportGenre.TabIndex = 2;
+            this.btnReportGenre.Text = "Отчет по жанрам";
+            this.btnReportGenre.UseVisualStyleBackColor = true;
+            this.btnReportGenre.Click += new System.EventHandler(this.btnReportGenre_Click);
+
             // 
             // ReportSelectionForm
             // 
-            ClientSize = new Size(224, 183);
-            Controls.Add(btnReportUserRating);
-            Controls.Add(btnReportGenre);
-            Controls.Add(btnReportArt);
-            Name = "ReportSelectionForm";
-            Text = "Выбор отчёта";
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(300, 230);
+            this.Controls.Add(this.btnReportUserRating);
+            this.Controls.Add(this.btnReportArt);
+            this.Controls.Add(this.btnReportGenre);
+            this.Name = "ReportSelectionForm";
+            this.Text = "Генерация отчетов";
+            this.ResumeLayout(false);
         }
     }
 }

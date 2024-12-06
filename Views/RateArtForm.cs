@@ -27,11 +27,11 @@ namespace kursDB1.Views
                 using (var connection = new Npgsql.NpgsqlConnection(ConnectionString))
                 {
                     connection.Open();
-                    string query = @"
-                        INSERT INTO marks (id_user, id_art, mark) 
-                        VALUES (@userId, @artId, @mark)
-                        ON CONFLICT (id_user, id_art) 
-                        DO UPDATE SET mark = EXCLUDED.mark";
+                    string query = $@"
+                INSERT INTO marks (id_user, id_art, mark) 
+                VALUES ({_userId}, {_artId}, {mark})
+                ON CONFLICT (id_user, id_art) 
+                DO UPDATE SET mark = EXCLUDED.mark";
 
                     using (var command = new Npgsql.NpgsqlCommand(query, connection))
                     {
