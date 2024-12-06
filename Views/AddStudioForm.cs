@@ -18,9 +18,10 @@ namespace kursDB1.Views
                 // Получаем данные из формы
                 string Name = txtName.Text;
                 DateTime BDay = dtpBDay.Value;
+                string formattedBDay = BDay.ToString("yyyy-MM-dd");
 
                 // SQL-запрос для добавления студии в базу данных
-                string query = $"INSERT INTO studios (name, b_day) VALUES ('{Name}', {BDay})";
+                string query = $"INSERT INTO studios (name, b_day) VALUES ('{Name}', '{formattedBDay}')";
 
                 // Строка подключения к базе данных
                 string connectionString = "Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1";
@@ -35,7 +36,7 @@ namespace kursDB1.Views
                     {
                         // Добавляем параметры для защиты от SQL-инъекций
                         command.Parameters.AddWithValue("@Name", Name);
-                        command.Parameters.AddWithValue("@BDay", BDay);
+                        command.Parameters.AddWithValue("@BDay", NpgsqlTypes.NpgsqlDbType.Date, BDay);
 
                         // Выполняем команду
                         command.ExecuteNonQuery();

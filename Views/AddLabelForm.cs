@@ -19,9 +19,10 @@ namespace kursDB1.Views
                 // Получаем данные из формы
                 string labelName = txtName.Text;
                 DateTime BDate = dtpBDate.Value;
+                string formattedBDay = BDate.ToString("yyyy-MM-dd");
 
                 // SQL-запрос для добавления нового лейбла в базу данных
-                string query = $"INSERT INTO music_labels (name, b_date) VALUES ('{labelName}', {BDate})";
+                string query = $"INSERT INTO labels (name, b_date) VALUES ('{labelName}', '{formattedBDay}')";
 
                 // Создаем строку подключения
                 string connectionString = "Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1";

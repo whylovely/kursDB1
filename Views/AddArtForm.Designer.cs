@@ -5,12 +5,12 @@
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.TextBox txtDuration;
-        private System.Windows.Forms.ComboBox cmbGenres;
-        private System.Windows.Forms.ComboBox cmbDirectors;
-        private System.Windows.Forms.ComboBox cmbStudios;
-        private System.Windows.Forms.ComboBox cmbLabels;
-        private System.Windows.Forms.ComboBox cmbArtists;
-        private System.Windows.Forms.ComboBox cmbAlbums;
+        private System.Windows.Forms.TextBox txtGenre;
+        private System.Windows.Forms.TextBox txtDirector;
+        private System.Windows.Forms.TextBox txtStudio;
+        private System.Windows.Forms.TextBox txtLabel;
+        private System.Windows.Forms.TextBox txtArtist;
+        private System.Windows.Forms.TextBox txtAlbum;
         private System.Windows.Forms.Button btnSave;
 
         protected override void Dispose(bool disposing)
@@ -26,12 +26,12 @@
         {
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtDuration = new System.Windows.Forms.TextBox();
-            this.cmbGenres = new System.Windows.Forms.ComboBox();
-            this.cmbDirectors = new System.Windows.Forms.ComboBox();
-            this.cmbStudios = new System.Windows.Forms.ComboBox();
-            this.cmbLabels = new System.Windows.Forms.ComboBox();
-            this.cmbArtists = new System.Windows.Forms.ComboBox();
-            this.cmbAlbums = new System.Windows.Forms.ComboBox();
+            this.txtGenre = new System.Windows.Forms.TextBox();
+            this.txtDirector = new System.Windows.Forms.TextBox();
+            this.txtStudio = new System.Windows.Forms.TextBox();
+            this.txtLabel = new System.Windows.Forms.TextBox();
+            this.txtArtist = new System.Windows.Forms.TextBox();
+            this.txtAlbum = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.SuspendLayout();
 
@@ -47,61 +47,49 @@
             this.txtDuration.Name = "txtDuration";
             this.txtDuration.Size = new System.Drawing.Size(260, 23);
             this.txtDuration.TabIndex = 1;
-            this.txtDuration.Text = "Продолжительность (введите как текст)";
+            this.txtDuration.Text = "Продолжительность (введите минуты)";
 
-            // cmbGenres
-            this.cmbGenres.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbGenres.FormattingEnabled = true;
-            this.cmbGenres.Location = new System.Drawing.Point(12, 68);
-            this.cmbGenres.Name = "cmbGenres";
-            this.cmbGenres.Size = new System.Drawing.Size(260, 23);
-            this.cmbGenres.TabIndex = 2;
-            this.cmbGenres.Text = "Жанр";
+            // txtGenre
+            this.txtGenre.Location = new System.Drawing.Point(12, 68);
+            this.txtGenre.Name = "txtGenre";
+            this.txtGenre.Size = new System.Drawing.Size(260, 23);
+            this.txtGenre.TabIndex = 2;
+            this.txtGenre.Text = "Жанр";
 
-            // cmbDirectors
-            this.cmbDirectors.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbDirectors.FormattingEnabled = true;
-            this.cmbDirectors.Location = new System.Drawing.Point(12, 96);
-            this.cmbDirectors.Name = "cmbDirectors";
-            this.cmbDirectors.Size = new System.Drawing.Size(260, 23);
-            this.cmbDirectors.TabIndex = 3;
-            this.cmbDirectors.Text = "Режиссер";
+            // txtDirector
+            this.txtDirector.Location = new System.Drawing.Point(12, 96);
+            this.txtDirector.Name = "txtDirector";
+            this.txtDirector.Size = new System.Drawing.Size(260, 23);
+            this.txtDirector.TabIndex = 3;
+            this.txtDirector.Text = "Режиссер";
 
-            // cmbStudios
-            this.cmbStudios.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbStudios.FormattingEnabled = true;
-            this.cmbStudios.Location = new System.Drawing.Point(12, 124);
-            this.cmbStudios.Name = "cmbStudios";
-            this.cmbStudios.Size = new System.Drawing.Size(260, 23);
-            this.cmbStudios.TabIndex = 4;
-            this.cmbStudios.Text = "Студия";
+            // txtStudio
+            this.txtStudio.Location = new System.Drawing.Point(12, 124);
+            this.txtStudio.Name = "txtStudio";
+            this.txtStudio.Size = new System.Drawing.Size(260, 23);
+            this.txtStudio.TabIndex = 4;
+            this.txtStudio.Text = "Студия";
 
-            // cmbLabels
-            this.cmbLabels.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbLabels.FormattingEnabled = true;
-            this.cmbLabels.Location = new System.Drawing.Point(12, 152);
-            this.cmbLabels.Name = "cmbLabels";
-            this.cmbLabels.Size = new System.Drawing.Size(260, 23);
-            this.cmbLabels.TabIndex = 5;
-            this.cmbLabels.Text = "Лейбл";
+            // txtLabel
+            this.txtLabel.Location = new System.Drawing.Point(12, 152);
+            this.txtLabel.Name = "txtLabel";
+            this.txtLabel.Size = new System.Drawing.Size(260, 23);
+            this.txtLabel.TabIndex = 5;
+            this.txtLabel.Text = "Лейбл";
 
-            // cmbArtists
-            this.cmbArtists.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbArtists.FormattingEnabled = true;
-            this.cmbArtists.Location = new System.Drawing.Point(12, 180);
-            this.cmbArtists.Name = "cmbArtists";
-            this.cmbArtists.Size = new System.Drawing.Size(260, 23);
-            this.cmbArtists.TabIndex = 6;
-            this.cmbArtists.Text = "Артист";
+            // txtArtist
+            this.txtArtist.Location = new System.Drawing.Point(12, 180);
+            this.txtArtist.Name = "txtArtist";
+            this.txtArtist.Size = new System.Drawing.Size(260, 23);
+            this.txtArtist.TabIndex = 6;
+            this.txtArtist.Text = "Артист";
 
-            // cmbAlbums
-            this.cmbAlbums.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAlbums.FormattingEnabled = true;
-            this.cmbAlbums.Location = new System.Drawing.Point(12, 208);
-            this.cmbAlbums.Name = "cmbAlbums";
-            this.cmbAlbums.Size = new System.Drawing.Size(260, 23);
-            this.cmbAlbums.TabIndex = 7;
-            this.cmbAlbums.Text = "Альбом";
+            // txtAlbum
+            this.txtAlbum.Location = new System.Drawing.Point(12, 208);
+            this.txtAlbum.Name = "txtAlbum";
+            this.txtAlbum.Size = new System.Drawing.Size(260, 23);
+            this.txtAlbum.TabIndex = 7;
+            this.txtAlbum.Text = "Альбом";
 
             // btnSave
             this.btnSave.Location = new System.Drawing.Point(12, 236);
@@ -116,12 +104,12 @@
             this.ClientSize = new System.Drawing.Size(284, 271);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.txtDuration);
-            this.Controls.Add(this.cmbGenres);
-            this.Controls.Add(this.cmbDirectors);
-            this.Controls.Add(this.cmbStudios);
-            this.Controls.Add(this.cmbLabels);
-            this.Controls.Add(this.cmbArtists);
-            this.Controls.Add(this.cmbAlbums);
+            this.Controls.Add(this.txtGenre);
+            this.Controls.Add(this.txtDirector);
+            this.Controls.Add(this.txtStudio);
+            this.Controls.Add(this.txtLabel);
+            this.Controls.Add(this.txtArtist);
+            this.Controls.Add(this.txtAlbum);
             this.Controls.Add(this.btnSave);
             this.Name = "AddArtForm";
             this.Text = "Добавить произведение";

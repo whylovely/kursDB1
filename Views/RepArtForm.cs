@@ -17,29 +17,30 @@ namespace kursDB1.Views
         private DataTable GetReportData()
         {
             string query = @"
-                SELECT 
-                    arts.name AS Название_произведения,
-                    genres.name AS Жанр,
-                    studio.name AS Студия,
-                    directors.name AS Режиссёр,
-                    labels.name AS Лейбл,
-                    artists.name AS Исполнитель,
-                    albums.name AS Альбом,
-                    AVG(marks.mark) AS Средняя_оценка
-                FROM 
-                    arts art
-                    JOIN genres genre ON arts.id_genre = genres.id
-                    JOIN studios studio ON arts.id_studio = studios.id
-                    JOIN directors director ON arts.id_director = directors.id
-                    JOIN labels label ON arts.id_label = labels.id
-                    JOIN artists artist ON arts.id_artist = artists.id
-                    JOIN albums album ON arts.id_album = albums.id
-                    LEFT JOIN marks mark ON arts.id = marks.id_art
-                GROUP BY 
-                    arts.id, genres.name, studios.name, directors.name, labels.name, artists.name, albums.name";
+        SELECT 
+            art.name AS Название_произведения,
+            genre.name AS Жанр,
+            studio.name AS Студия,
+            director.name AS Режиссёр,
+            label.name AS Лейбл,
+            artist.name AS Исполнитель,
+            album.name AS Альбом,
+            AVG(mark.mark) AS Средняя_оценка
+        FROM 
+            arts art
+            JOIN genres genre ON art.id_genre = genre.id
+            JOIN studios studio ON art.id_studio = studio.id
+            JOIN directors director ON art.id_director = director.id
+            JOIN labels label ON art.id_label = label.id
+            JOIN artists artist ON art.id_artist = artist.id
+            JOIN albums album ON art.id_album = album.id
+            LEFT JOIN marks mark ON art.id = mark.id_art
+        GROUP BY 
+            art.id, genre.name, studio.name, director.name, label.name, artist.name, album.name";
 
             return GetDataFromDatabase(query);
         }
+
 
         private DataTable GetDataFromDatabase(string query)
         {

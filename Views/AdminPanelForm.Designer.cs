@@ -12,7 +12,8 @@
         private System.Windows.Forms.Label lblWelcome;
         private System.Windows.Forms.Button btnGenerateReport;
         private System.Windows.Forms.Button btnAddArtist;
-
+        private System.Windows.Forms.Button btnDeleteArt;
+        private System.Windows.Forms.Button btnEditArt;
 
         private void InitializeComponent()
         {
@@ -26,6 +27,8 @@
             btnGenerateReport = new Button();
             lblWelcome = new Label();
             btnAddArtist = new Button();
+            btnDeleteArt = new Button();
+            btnEditArt = new Button();
             SuspendLayout();
             // 
             // btnAddArt
@@ -80,7 +83,7 @@
             // 
             // btnAddGenre
             // 
-            btnAddGenre.Location = new Point(43, 192);
+            btnAddGenre.Location = new Point(250, 84);
             btnAddGenre.Name = "btnAddGenre";
             btnAddGenre.Size = new Size(200, 30);
             btnAddGenre.TabIndex = 5;
@@ -90,7 +93,7 @@
             // 
             // btnLogout
             // 
-            btnLogout.Location = new Point(43, 300);
+            btnLogout.Location = new Point(142, 192);
             btnLogout.Name = "btnLogout";
             btnLogout.Size = new Size(200, 30);
             btnLogout.TabIndex = 6;
@@ -100,7 +103,7 @@
             // 
             // btnGenerateReport
             // 
-            btnGenerateReport.Location = new Point(43, 264);
+            btnGenerateReport.Location = new Point(250, 156);
             btnGenerateReport.Name = "btnGenerateReport";
             btnGenerateReport.Size = new Size(200, 30);
             btnGenerateReport.TabIndex = 8;
@@ -111,7 +114,7 @@
             // lblWelcome
             // 
             lblWelcome.AutoSize = true;
-            lblWelcome.Location = new Point(12, 333);
+            lblWelcome.Location = new Point(109, 240);
             lblWelcome.Name = "lblWelcome";
             lblWelcome.Size = new Size(260, 15);
             lblWelcome.TabIndex = 9;
@@ -120,7 +123,7 @@
             // 
             // btnAddArtist
             // 
-            btnAddArtist.Location = new Point(43, 228);
+            btnAddArtist.Location = new Point(250, 120);
             btnAddArtist.Name = "btnAddArtist";
             btnAddArtist.Size = new Size(200, 30);
             btnAddArtist.TabIndex = 7;
@@ -128,9 +131,31 @@
             btnAddArtist.UseVisualStyleBackColor = true;
             btnAddArtist.Click += btnAddArtist_Click;
             // 
+            // btnDeleteArt
+            // 
+            btnDeleteArt.Location = new Point(250, 12);
+            btnDeleteArt.Name = "btnDeleteArt";
+            btnDeleteArt.Size = new Size(200, 30);
+            btnDeleteArt.TabIndex = 10;
+            btnDeleteArt.Text = "Удалить произведение";
+            btnDeleteArt.UseVisualStyleBackColor = true;
+            btnDeleteArt.Click += btnDeleteArt_Click;
+            // 
+            // btnEditArt
+            // 
+            btnEditArt.Location = new Point(250, 48);
+            btnEditArt.Name = "btnEditArt";
+            btnEditArt.Size = new Size(200, 30);
+            btnEditArt.TabIndex = 11;
+            btnEditArt.Text = "Изменить произведение";
+            btnEditArt.UseVisualStyleBackColor = true;
+            btnEditArt.Click += btnEditArt_Click;
+            // 
             // AdminPanelForm
             // 
-            ClientSize = new Size(284, 362);
+            ClientSize = new Size(486, 272);
+            Controls.Add(btnDeleteArt);
+            Controls.Add(btnEditArt);
             Controls.Add(btnAddArtist);
             Controls.Add(btnAddArt);
             Controls.Add(btnAddAlbum);

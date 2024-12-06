@@ -18,16 +18,16 @@ namespace kursDB1.Views
         {
             string query = @"
                 SELECT 
-                    genres.name AS Жанр,
-                    COUNT(arts.id) AS Количество_произведений,
-                    AVG(marks.mark) AS Средняя_оценка,
-                    MAX(arts.name) AS Наиболее_популярное_произведение
+                    genre.name AS Жанр,
+                    COUNT(art.id) AS Количество_произведений,
+                    AVG(mark.mark) AS Средняя_оценка,
+                    MAX(art.name) AS Наиболее_популярное_произведение
                 FROM 
                     genres genre
-                    LEFT JOIN arts art ON arts.id_genre = genres.id
-                    LEFT JOIN marks mark ON arts.id = marks.id_art
+                    LEFT JOIN arts art ON art.id_genre = genre.id
+                    LEFT JOIN marks mark ON art.id = mark.id_art
                 GROUP BY 
-                    genres.name";
+                    genre.name";
 
             return GetDataFromDatabase(query);
         }

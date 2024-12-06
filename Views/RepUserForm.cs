@@ -13,7 +13,7 @@ namespace kursDB1.Views
 {
     public partial class ReportUserRatingForm : Form
     {
-        private string currentUser = "Admin"; // Имя пользователя, который генерирует отчет. Замените это на реальное имя пользователя, если нужно.
+        private string currentUser = "Admin"; 
         private DataTable reportData;
 
         public ReportUserRatingForm()
@@ -27,16 +27,16 @@ namespace kursDB1.Views
         {
             string query = @"
                 SELECT 
-                    users.id AS ID_пользователя,
-                    users.name AS ФИО,
-                    users.role_id AS Уровень_доступа,
-                    AVG(marks.mark) AS Средняя_оценка,
-                    COUNT(marks.id) AS Количество_оценок
+                    user_.id AS ID_пользователя,
+                    user_.name AS ФИО,
+                    user_.role_id AS Уровень_доступа,
+                    AVG(mark.mark) AS Средняя_оценка,
+                    COUNT(mark.id) AS Количество_оценок
                 FROM 
-                    users user
-                    LEFT JOIN marks mark ON users.id = marks.id_user
+                    users user_
+                    LEFT JOIN marks mark ON user_.id = mark.id_user
                 GROUP BY 
-                    users.id, users.name, users.role_id";
+                    user_.id, user_.name, user_.role_id";
 
             return GetDataFromDatabase(query);
         }
