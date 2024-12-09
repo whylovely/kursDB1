@@ -61,11 +61,11 @@ namespace kursDB1.Views
                 int albumId = GetEntityIdByName("Albums", albumName);
 
                 // Если какой-либо элемент не найден, возвращаем ошибку
-                if (genreId == -1 || directorId == -1 || studioId == -1 || labelId == -1 || artistId == -1 || albumId == -1)
-                {
-                    MessageBox.Show("Указанные данные не найдены в базе данных. Проверьте правильность ввода.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                //if (genreId == -1 || directorId == -1 || studioId == -1 || labelId == -1 || artistId == -1 || albumId == -1)
+                //{
+                //    MessageBox.Show("Указанные данные не найдены в базе данных. Проверьте правильность ввода.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //    return;
+                //}
 
                 // SQL-запрос для добавления произведения
                 string query = "INSERT INTO Arts (name, duration, id_genre, id_director, id_studio, id_label, id_artist, id_album) " +

@@ -222,17 +222,17 @@ namespace kursDB1.Views
                 {
                     conn.Open();
                     string query = @"
-                    SELECT 
-                        genre.name AS Жанр,
-                        COUNT(art.id) AS Количество_произведений,
-                        AVG(mark.mark) AS Средняя_оценка,
-                        MAX(art.name) AS Наиболее_популярное_произведение
-                    FROM 
-                        genres genre
-                        LEFT JOIN arts art ON art.id_genre = genre.id
-                        LEFT JOIN marks mark ON art.id = mark.id_art
-                    GROUP BY 
-                        genre.name";
+            SELECT 
+                genre.name AS Жанр,
+                COUNT(art.id) AS Количество_произведений,
+                AVG(mark.mark) AS Средняя_оценка,
+                MAX(art.name) AS Наиболее_популярное_произведение
+            FROM 
+                genres genre
+                LEFT JOIN arts art ON art.id_genre = genre.id
+                LEFT JOIN marks mark ON art.id = mark.id_art
+            GROUP BY 
+                genre.name";
 
                     using (var cmd = new NpgsqlCommand(query, conn))
                     using (var reader = cmd.ExecuteReader())
@@ -260,11 +260,11 @@ namespace kursDB1.Views
                                     doc.Add(header);
 
                                     // Создаем таблицу
-                                    PdfPTable table = new PdfPTable(4); // 4 столбца для вашего отчета
+                                    PdfPTable table = new PdfPTable(5); // 5 столбцов для нового отчета
                                     table.WidthPercentage = 100;
 
                                     // Заголовки столбцов
-                                    string[] headers = { "Жанр", "Количество произведений", "Средняя оценка", "Наиболее популярное произведение" };
+                                    string[] headers = { "Жанр", "Количество произведений", "Средняя оценка", "Звезды", "Наиболее популярное произведение" };
                                     foreach (string columnHeader in headers)
                                     {
                                         PdfPCell cell = new PdfPCell(new Phrase(columnHeader, font));
@@ -278,7 +278,15 @@ namespace kursDB1.Views
                                     {
                                         table.AddCell(new PdfPCell(new Phrase(reader["Жанр"].ToString(), font)));
                                         table.AddCell(new PdfPCell(new Phrase(reader["Количество_произведений"].ToString(), font)));
-                                        table.AddCell(new PdfPCell(new Phrase(reader["Средняя_оценка"].ToString(), font)));
+
+                                        // Форматируем среднюю оценку до двух знаков после запятой
+                                        double avgMark = Convert.ToDouble(reader["Средняя_оценка"]);
+                                        table.AddCell(new PdfPCell(new Phrase(avgMark.ToString("F2"), font)));
+
+                                        // Генерация звезд
+                                        string stars = GenerateStars(avgMark);
+                                        table.AddCell(new PdfPCell(new Phrase(stars, font)));
+
                                         table.AddCell(new PdfPCell(new Phrase(reader["Наиболее_популярное_произведение"].ToString(), font)));
                                     }
 
@@ -301,6 +309,16 @@ namespace kursDB1.Views
                     MessageBox.Show($"Ошибка при генерации отчета: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private string GenerateStars(double avgMark)
+        {
+            if (avgMark >= 8) return "★★★★★";
+            if (avgMark >= 7) return "★★★★";
+            if (avgMark >= 5) return "★★★";
+            if (avgMark >= 3) return "★★";
+            if (avgMark >= 1) return "★";
+            return "☆";
         }
     }
 }
