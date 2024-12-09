@@ -1,13 +1,9 @@
-﻿using System;
-using System.Data;
-using System.Windows.Forms;
-using Npgsql; // Для работы с PostgreSQL
+﻿using Npgsql;
 
 namespace kursDB1.Views
 {
     public partial class AddAlbumForm : Form
     {
-        // Строка подключения к базе данных PostgreSQL
         private readonly string _connectionString = "Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1";
 
         public AddAlbumForm()
@@ -22,7 +18,6 @@ namespace kursDB1.Views
                 using (var connection = new NpgsqlConnection(_connectionString))
                 {
                     connection.Open();
-                    // SQL-запрос для получения всех артистов
                     string query = "SELECT id, name FROM artists";
                     using (var command = new NpgsqlCommand(query, connection))
                     {
@@ -31,7 +26,7 @@ namespace kursDB1.Views
                             while (reader.Read())
                             {
                                 var artist = new { Id = reader["id"], Name = reader["name"] };
-                                cmbArtists.Items.Add(artist); // Добавляем артистов в ComboBox
+                                cmbArtists.Items.Add(artist); 
                             }
                         }
                     }
@@ -50,14 +45,12 @@ namespace kursDB1.Views
             DateTime dropDay = dtpDropDay.Value;
             string formattedBDay = dropDay.ToString("yyyy-MM-dd");
 
-            // Проверка на валидность введенных данных
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(countArtsText) || !int.TryParse(countArtsText, out int countArts))
             {
                 MessageBox.Show("Пожалуйста, заполните все поля корректно.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // Получаем выбранного артиста из ComboBox
             var selectedArtist = cmbArtists.SelectedItem as dynamic;
             if (selectedArtist == null)
             {
@@ -65,24 +58,21 @@ namespace kursDB1.Views
                 return;
             }
 
-            int artistId = selectedArtist.Id; // Получаем Id выбранного артиста
+            int artistId = selectedArtist.Id; 
 
             try
             {
                 using (var connection = new NpgsqlConnection(_connectionString))
                 {
-                    // SQL-запрос для добавления альбома с выбранным артистом
                     string query = $"INSERT INTO Albums (name, count_arts, drop_day, id_artist) VALUES ('{name}', {countArts}, '{formattedBDay}', {artistId})";
 
                     using (var command = new NpgsqlCommand(query, connection))
                     {
-                        // Параметры для предотвращения SQL-инъекций
                         command.Parameters.AddWithValue("@name", name);
                         command.Parameters.AddWithValue("@countArts", countArts);
                         command.Parameters.AddWithValue("@dropDay", dropDay);
-                        command.Parameters.AddWithValue("@artistId", artistId); // Передаем ID артиста
+                        command.Parameters.AddWithValue("@artistId", artistId); 
 
-                        // Открытие соединения и выполнение команды
                         connection.Open();
                         int rowsAffected = command.ExecuteNonQuery();
 

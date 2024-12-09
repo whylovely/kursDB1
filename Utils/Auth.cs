@@ -1,16 +1,12 @@
-﻿using System;
-using Npgsql;
+﻿using Npgsql;
 using kursDB1.Models;
-using kursDB1.Utils;
 
-namespace kursDB1.Controllers
+namespace kursDB1.Utils
 {
     public class AuthController
     {
-        // Строка подключения к базе данных PostgreSQL
         private readonly string _connectionString = "Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1";
 
-        // Метод для аутентификации пользователя
         public User Login(string email, string password)
         {
             try
@@ -27,13 +23,11 @@ namespace kursDB1.Controllers
                         {
                             if (reader.Read())
                             {
-                                // Получение данных из базы
                                 int id = reader.GetInt32(0);
                                 string name = reader.GetString(1);
                                 string storedPassword = reader.GetString(3);
                                 int roleId = reader.GetInt32(4);
 
-                                // Проверка пароля
                                 if (password == storedPassword)
                                 {
                                     return new User
@@ -51,11 +45,9 @@ namespace kursDB1.Controllers
             }
             catch (Exception ex)
             {
-                // Логирование ошибки
                 Console.WriteLine(ex.Message);
             }
 
-            // Если пользователь не найден или пароль неверен
             return null;
         }
     }

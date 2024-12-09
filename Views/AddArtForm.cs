@@ -1,6 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Windows.Forms;
+﻿using System.Data;
 using Npgsql;
 
 namespace kursDB1.Views
@@ -18,7 +16,6 @@ namespace kursDB1.Views
         {
             try
             {
-                // Загрузка всех связанных сущностей в ComboBox
                 LoadComboBox(cmbGenre, "genres", "id", "name");
                 LoadComboBox(cmbStudio, "studios", "id", "name");
                 LoadComboBox(cmbDirector, "directors", "id", "name");
@@ -43,7 +40,6 @@ namespace kursDB1.Views
                     return;
                 }
 
-                // Получение выбранных значений из ComboBox
                 int genreId = GetSelectedComboBoxValue(cmbGenre);
                 int studioId = GetSelectedComboBoxValue(cmbStudio);
                 int directorId = GetSelectedComboBoxValue(cmbDirector);
@@ -65,7 +61,6 @@ namespace kursDB1.Views
 
                     using (var command = new NpgsqlCommand(query, connection))
                     {
-                        // Передача параметров для предотвращения SQL-инъекций
                         command.Parameters.AddWithValue("@name", name);
                         command.Parameters.AddWithValue("@duration", duration);
                         command.Parameters.AddWithValue("@genreId", genreId);
@@ -75,7 +70,6 @@ namespace kursDB1.Views
                         command.Parameters.AddWithValue("@artistId", artistId);
                         command.Parameters.AddWithValue("@albumId", albumId);
 
-                        // Выполнение команды
                         connection.Open();
                         int rowsAffected = command.ExecuteNonQuery();
 
@@ -119,7 +113,7 @@ namespace kursDB1.Views
                         comboBox.DataSource = dataTable;
                         comboBox.DisplayMember = displayMember;
                         comboBox.ValueMember = valueMember;
-                        comboBox.SelectedIndex = -1; // Убираем начальный выбор
+                        comboBox.SelectedIndex = -1; 
                     }
                 }
             }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Data.SqlClient;
-using System.Windows.Forms;
-
-namespace kursDB1.Views
+﻿namespace kursDB1.Views
 {
     public partial class RateArtForm : Form
     {

@@ -33,7 +33,6 @@ namespace kursDB1.Views
                             adapter.Fill(arts);
                             dgvArts.DataSource = arts;
 
-                            // Устанавливаем заголовки колонок
                             dgvArts.Columns["id"].HeaderText = "Номер";
                             dgvArts.Columns["name"].HeaderText = "Название";
                             dgvArts.Columns["genre_name"].HeaderText = "Жанр";
@@ -115,7 +114,6 @@ namespace kursDB1.Views
                             adapter.Fill(arts);
                             dgvArts.DataSource = arts;
 
-                            // Устанавливаем заголовки колонок
                             dgvArts.Columns["id"].HeaderText = "Номер";
                             dgvArts.Columns["name"].HeaderText = "Название";
                             dgvArts.Columns["genre_name"].HeaderText = "Жанр";
@@ -165,7 +163,6 @@ namespace kursDB1.Views
                             adapter.Fill(arts);
                             dgvArts.DataSource = arts;
 
-                            // Устанавливаем заголовки колонок
                             dgvArts.Columns["id"].HeaderText = "Номер";
                             dgvArts.Columns["name"].HeaderText = "Название";
                             dgvArts.Columns["genre_name"].HeaderText = "Жанр";

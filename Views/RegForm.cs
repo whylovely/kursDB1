@@ -1,13 +1,7 @@
-﻿using System;
-using System.Windows.Forms;
-using Npgsql; // Для работы с PostgreSQL
-using kursDB1.Utils; // Для хэширования пароля
-
-namespace kursDB1.Views
+﻿namespace kursDB1.Views
 {
     public partial class RegForm : Form
     {
-        // Строка подключения к базе данных PostgreSQL
         private readonly string _connectionString = "Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1";
 
         public RegForm()
@@ -22,7 +16,6 @@ namespace kursDB1.Views
             string password = txtPassword.Text;
             string confirmPassword = txtConfirmPassword.Text;
 
-            // Проверка на заполненность полей
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(email) ||
                 string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(confirmPassword))
             {
@@ -30,26 +23,20 @@ namespace kursDB1.Views
                 return;
             }
 
-            // Проверка формата почты
             if (!IsValidEmail(email))
             {
                 MessageBox.Show("Некорректный формат электронной почты.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // Проверка, чтобы оба пароля совпадали
             if (password != confirmPassword)
             {
                 MessageBox.Show("Пароли не совпадают.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // Хэшируем пароль перед сохранением
-            string hashedPassword = PasswordHasher.HashPassword(password);
-
             try
             {
-                // Проверка существования пользователя с таким email или username
                 string checkQuery = $"SELECT COUNT(*) FROM Users WHERE email = '{email}' OR name = '{username}'";
                 using (var connection = new Npgsql.NpgsqlConnection(_connectionString))
                 {
@@ -67,7 +54,6 @@ namespace kursDB1.Views
                     }
                 }
 
-                // SQL-запрос для добавления пользователя
                 string query = $"INSERT INTO Users (name, email, password, role_id) VALUES ('{username}', '{email}', '{password}', 2)";
 
                 using (var connection = new Npgsql.NpgsqlConnection(_connectionString))
@@ -84,9 +70,8 @@ namespace kursDB1.Views
                     {
                         MessageBox.Show("Пользователь успешно зарегистрирован.", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        // Открытие формы входа после регистрации
                         var loginForm = new LoginForm();
-                        this.Hide(); // Скрыть форму регистрации
+                        this.Hide(); 
                         loginForm.ShowDialog();
                         this.Close();
                     }
@@ -104,7 +89,6 @@ namespace kursDB1.Views
 
 
 
-        // Проверка формата email
         private bool IsValidEmail(string email)
         {
             try

@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 namespace kursDB1.Utils
 {

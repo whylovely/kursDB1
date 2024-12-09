@@ -57,7 +57,6 @@ namespace kursDB1.Views
                                     iTextSharp.text.pdf.PdfWriter writer = iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(sfd.FileName, FileMode.Create));
                                     doc.Open();
 
-                                    // Заголовок отчета
                                     BaseFont baseFont = BaseFont.CreateFont(@"C:\Windows\Fonts\arial.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
                                     iTextSharp.text.Font font = new iTextSharp.text.Font(baseFont, 12);
                                     iTextSharp.text.Font headerFont = new iTextSharp.text.Font(baseFont, 14, iTextSharp.text.Font.BOLD);
@@ -67,11 +66,9 @@ namespace kursDB1.Views
                                     header.SpacingAfter = 20f;
                                     doc.Add(header);
 
-                                    // Создаем таблицу
-                                    PdfPTable table = new PdfPTable(5); // 5 столбцов для вашего отчета
+                                    PdfPTable table = new PdfPTable(5); 
                                     table.WidthPercentage = 100;
 
-                                    // Заголовки столбцов
                                     string[] headers = { "ID пользователя", "ФИО", "Уровень доступа", "Средняя оценка", "Количество оценок" };
                                     foreach (string columnHeader in headers)
                                     {
@@ -81,7 +78,6 @@ namespace kursDB1.Views
                                         table.AddCell(cell);
                                     }
 
-                                    // Добавляем данные
                                     while (reader.Read())
                                     {
                                         table.AddCell(new PdfPCell(new Phrase(reader["ID_пользователя"].ToString(), font)));
@@ -93,7 +89,6 @@ namespace kursDB1.Views
 
                                     doc.Add(table);
 
-                                    // Добавляем дату генерации отчета
                                     iTextSharp.text.Paragraph footer = new iTextSharp.text.Paragraph(new Phrase($"\nОтчет сгенерирован: {DateTime.Now:dd.MM.yyyy HH:mm:ss}", font));
                                     footer.Alignment = Element.ALIGN_RIGHT;
                                     doc.Add(footer);
@@ -156,7 +151,6 @@ namespace kursDB1.Views
                                     iTextSharp.text.pdf.PdfWriter writer = iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(sfd.FileName, FileMode.Create));
                                     doc.Open();
 
-                                    // Заголовок отчета
                                     BaseFont baseFont = BaseFont.CreateFont(@"C:\Windows\Fonts\arial.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
                                     iTextSharp.text.Font font = new iTextSharp.text.Font(baseFont, 12);
                                     iTextSharp.text.Font headerFont = new iTextSharp.text.Font(baseFont, 14, iTextSharp.text.Font.BOLD);
@@ -166,11 +160,9 @@ namespace kursDB1.Views
                                     header.SpacingAfter = 20f;
                                     doc.Add(header);
 
-                                    // Создаем таблицу
-                                    PdfPTable table = new PdfPTable(8); // 8 столбцов для вашего отчета
+                                    PdfPTable table = new PdfPTable(8);
                                     table.WidthPercentage = 100;
 
-                                    // Заголовки столбцов
                                     string[] headers = { "Название произведения", "Жанр", "Студия", "Режиссёр", "Лейбл", "Исполнитель", "Альбом", "Средняя оценка" };
                                     foreach (string columnHeader in headers)
                                     {
@@ -180,7 +172,6 @@ namespace kursDB1.Views
                                         table.AddCell(cell);
                                     }
 
-                                    // Добавляем данные
                                     while (reader.Read())
                                     {
                                         table.AddCell(new PdfPCell(new Phrase(reader["Название_произведения"].ToString(), font)));
@@ -195,7 +186,6 @@ namespace kursDB1.Views
 
                                     doc.Add(table);
 
-                                    // Добавляем дату генерации отчета
                                     iTextSharp.text.Paragraph footer = new iTextSharp.text.Paragraph(new Phrase($"\nОтчет сгенерирован: {DateTime.Now:dd.MM.yyyy HH:mm:ss}", font));
                                     footer.Alignment = Element.ALIGN_RIGHT;
                                     doc.Add(footer);
@@ -249,7 +239,6 @@ namespace kursDB1.Views
                                     iTextSharp.text.pdf.PdfWriter writer = iTextSharp.text.pdf.PdfWriter.GetInstance(doc, new FileStream(sfd.FileName, FileMode.Create));
                                     doc.Open();
 
-                                    // Заголовок отчета
                                     BaseFont baseFont = BaseFont.CreateFont(@"C:\Windows\Fonts\arial.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
                                     iTextSharp.text.Font font = new iTextSharp.text.Font(baseFont, 12);
                                     iTextSharp.text.Font headerFont = new iTextSharp.text.Font(baseFont, 14, iTextSharp.text.Font.BOLD);
@@ -259,11 +248,9 @@ namespace kursDB1.Views
                                     header.SpacingAfter = 20f;
                                     doc.Add(header);
 
-                                    // Создаем таблицу
-                                    PdfPTable table = new PdfPTable(5); // 5 столбцов для нового отчета
+                                    PdfPTable table = new PdfPTable(5);
                                     table.WidthPercentage = 100;
 
-                                    // Заголовки столбцов
                                     string[] headers = { "Жанр", "Количество произведений", "Средняя оценка", "Звезды", "Наиболее популярное произведение" };
                                     foreach (string columnHeader in headers)
                                     {
@@ -273,17 +260,14 @@ namespace kursDB1.Views
                                         table.AddCell(cell);
                                     }
 
-                                    // Добавляем данные
                                     while (reader.Read())
                                     {
                                         table.AddCell(new PdfPCell(new Phrase(reader["Жанр"].ToString(), font)));
                                         table.AddCell(new PdfPCell(new Phrase(reader["Количество_произведений"].ToString(), font)));
 
-                                        // Форматируем среднюю оценку до двух знаков после запятой
                                         double avgMark = Convert.ToDouble(reader["Средняя_оценка"]);
                                         table.AddCell(new PdfPCell(new Phrase(avgMark.ToString("F2"), font)));
 
-                                        // Генерация звезд
                                         string stars = GenerateStars(avgMark);
                                         table.AddCell(new PdfPCell(new Phrase(stars, font)));
 
@@ -292,7 +276,6 @@ namespace kursDB1.Views
 
                                     doc.Add(table);
 
-                                    // Добавляем дату генерации отчета
                                     iTextSharp.text.Paragraph footer = new iTextSharp.text.Paragraph(new Phrase($"\nОтчет сгенерирован: {DateTime.Now:dd.MM.yyyy HH:mm:ss}", font));
                                     footer.Alignment = Element.ALIGN_RIGHT;
                                     doc.Add(footer);

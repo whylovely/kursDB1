@@ -1,23 +1,13 @@
-﻿using kursDB1.Controllers;
-using kursDB1.Utils;
+﻿using kursDB1.Utils;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace kursDB1.Views
 {
     public partial class AdminPanelForm : Form
     {
         private DataGridView dgvArts;
-        private readonly AdminController _adminController;
         private string connectionString = "Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1";
 
         public AdminPanelForm()
@@ -25,9 +15,6 @@ namespace kursDB1.Views
             InitializeComponent();
 
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1");
-
-            _adminController = new AdminController(optionsBuilder.Options);
         }
 
         private void LoadArts()
@@ -106,7 +93,7 @@ namespace kursDB1.Views
                     using (var editArtForm = new EditArtForm(artId))
                     {
                         editArtForm.ShowDialog();
-                        LoadArts(); // Перезагрузите список произведений после изменения
+                        LoadArts();
                     }
                 }
             }

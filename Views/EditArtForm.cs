@@ -35,7 +35,6 @@ namespace kursDB1.Views
                             {
                                 txtName.Text = reader["name"].ToString();
                                 txtDuration.Text = reader["duration"].ToString();
-                                // Загрузка других полей
                             }
                         }
                     }
