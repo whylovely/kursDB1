@@ -2,17 +2,17 @@
 {
     partial class UserPanelForm
     {
+        /// <summary>
+        /// Объявление компонентов формы.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
-
-        //private System.Windows.Forms.DataGridView dgvArts;
-        private System.Windows.Forms.Button btnRateArt;
         private System.Windows.Forms.Button btnViewMusic;
         private System.Windows.Forms.Button btnViewMovies;
 
         /// <summary>
         /// Освобождение ресурсов.
         /// </summary>
-        /// <param name="disposing">True, если управляемые ресурсы должны быть освобождены, иначе False.</param>
+        /// <param name="disposing">true, если управляемые ресурсы должны быть освобождены; иначе false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -22,76 +22,76 @@
             base.Dispose(disposing);
         }
 
-        #region Код, автоматически созданный дизайнером форм Windows
-
         /// <summary>
-        /// Метод инициализации компонентов формы.
+        /// Инициализация компонентов формы.
         /// </summary>
         private void InitializeComponent()
         {
-            dgvArts = new DataGridView();
-            btnRateArt = new Button();
-            btnViewMusic = new Button();
-            btnViewMovies = new Button();
-            ((System.ComponentModel.ISupportInitialize)dgvArts).BeginInit();
-            SuspendLayout();
+            this.dgvArts = new System.Windows.Forms.DataGridView();
+            this.btnViewMusic = new System.Windows.Forms.Button();
+            this.btnViewMovies = new System.Windows.Forms.Button();
+            this.btnReturn = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvArts)).BeginInit();
+            this.SuspendLayout();
+
             // 
             // dgvArts
             // 
-            dgvArts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvArts.Dock = DockStyle.Top;
-            dgvArts.Location = new Point(450, 0);
-            dgvArts.Name = "dgvArts";
-            dgvArts.ReadOnly = true;
-            dgvArts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvArts.Size = new Size(869, 115);
-            dgvArts.TabIndex = 0;
-            dgvArts.CellContentClick += dgvArts_CellContentClick;
-            // 
-            // btnRateArt
-            // 
-            btnRateArt.Dock = DockStyle.Left;
-            btnRateArt.Location = new Point(300, 0);
-            btnRateArt.Name = "btnRateArt";
-            btnRateArt.Size = new Size(150, 115);
-            btnRateArt.TabIndex = 1;
-            btnRateArt.Text = "Оценить произведение";
-            btnRateArt.Click += btnRateArt_Click;
+            this.dgvArts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvArts.Location = new System.Drawing.Point(12, 12);
+            this.dgvArts.Name = "dgvArts";
+            this.dgvArts.Size = new System.Drawing.Size(760, 400);
+            this.dgvArts.TabIndex = 0;
+            this.dgvArts.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvArts_CellContentClick);
+
             // 
             // btnViewMusic
             // 
-            btnViewMusic.Dock = DockStyle.Left;
-            btnViewMusic.Location = new Point(150, 0);
-            btnViewMusic.Name = "btnViewMusic";
-            btnViewMusic.Size = new Size(150, 115);
-            btnViewMusic.TabIndex = 2;
-            btnViewMusic.Text = "Посмотреть музыку";
-            btnViewMusic.Click += btnViewMusic_Click;
+            this.btnViewMusic.Location = new System.Drawing.Point(12, 420);
+            this.btnViewMusic.Name = "btnViewMusic";
+            this.btnViewMusic.Size = new System.Drawing.Size(100, 30);
+            this.btnViewMusic.TabIndex = 1;
+            this.btnViewMusic.Text = "Музыка";
+            this.btnViewMusic.UseVisualStyleBackColor = true;
+            this.btnViewMusic.Click += new System.EventHandler(this.btnViewMusic_Click);
+
             // 
             // btnViewMovies
             // 
-            btnViewMovies.Dock = DockStyle.Left;
-            btnViewMovies.Location = new Point(0, 0);
-            btnViewMovies.Name = "btnViewMovies";
-            btnViewMovies.Size = new Size(150, 115);
-            btnViewMovies.TabIndex = 3;
-            btnViewMovies.Text = "Посмотреть фильмы";
-            btnViewMovies.Click += btnViewMovies_Click;
+            this.btnViewMovies.Location = new System.Drawing.Point(118, 420);
+            this.btnViewMovies.Name = "btnViewMovies";
+            this.btnViewMovies.Size = new System.Drawing.Size(100, 30);
+            this.btnViewMovies.TabIndex = 2;
+            this.btnViewMovies.Text = "Фильмы";
+            this.btnViewMovies.UseVisualStyleBackColor = true;
+            this.btnViewMovies.Click += new System.EventHandler(this.btnViewMovies_Click);
+
+            // 
+            // btnReturn
+            // 
+            this.btnReturn.Location = new System.Drawing.Point(224, 420);
+            this.btnReturn.Name = "btnReturn";
+            this.btnReturn.Size = new System.Drawing.Size(100, 30);
+            this.btnReturn.TabIndex = 3;
+            this.btnReturn.Text = "Вернуться";
+            this.btnReturn.UseVisualStyleBackColor = true;
+            this.btnReturn.Click += new System.EventHandler(this.btnReturn_Click);
+
             // 
             // UserPanelForm
             // 
-            ClientSize = new Size(1319, 115);
-            Controls.Add(dgvArts);
-            Controls.Add(btnRateArt);
-            Controls.Add(btnViewMusic);
-            Controls.Add(btnViewMovies);
-            Name = "UserPanelForm";
-            Text = "Панель пользователя";
-            Load += UserPanelForm_Load;
-            ((System.ComponentModel.ISupportInitialize)dgvArts).EndInit();
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(784, 461);
+            this.Controls.Add(this.btnReturn);
+            this.Controls.Add(this.btnViewMovies);
+            this.Controls.Add(this.btnViewMusic);
+            this.Controls.Add(this.dgvArts);
+            this.Name = "UserPanelForm";
+            this.Text = "Панель пользователя";
+            this.Load += new System.EventHandler(this.UserPanelForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvArts)).EndInit();
+            this.ResumeLayout(false);
         }
-
-        #endregion
     }
 }

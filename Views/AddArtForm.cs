@@ -19,12 +19,12 @@ namespace kursDB1.Views
             try
             {
                 // Загрузка всех связанных сущностей в ComboBox
-                LoadComboBox(cmbGenres, "genres", "id", "name");
-                LoadComboBox(cmbStudios, "studios", "id", "name");
-                LoadComboBox(cmbDirectors, "directors", "id", "name");
-                LoadComboBox(cmbLabels, "labels", "id", "name");
-                LoadComboBox(cmbArtists, "artists", "id", "name");
-                LoadComboBox(cmbAlbums, "albums", "id", "name");
+                LoadComboBox(cmbGenre, "genres", "id", "name");
+                LoadComboBox(cmbStudio, "studios", "id", "name");
+                LoadComboBox(cmbDirector, "directors", "id", "name");
+                LoadComboBox(cmbLabel, "labels", "id", "name");
+                LoadComboBox(cmbArtist, "artists", "id", "name");
+                LoadComboBox(cmbAlbum, "albums", "id", "name");
             }
             catch (Exception ex)
             {
@@ -44,12 +44,12 @@ namespace kursDB1.Views
                 }
 
                 // Получение выбранных значений из ComboBox
-                int genreId = GetSelectedComboBoxValue(cmbGenres);
-                int studioId = GetSelectedComboBoxValue(cmbStudios);
-                int directorId = GetSelectedComboBoxValue(cmbDirectors);
-                int labelId = GetSelectedComboBoxValue(cmbLabels);
-                int artistId = GetSelectedComboBoxValue(cmbArtists);
-                int albumId = GetSelectedComboBoxValue(cmbAlbums);
+                int genreId = GetSelectedComboBoxValue(cmbGenre);
+                int studioId = GetSelectedComboBoxValue(cmbStudio);
+                int directorId = GetSelectedComboBoxValue(cmbDirector);
+                int labelId = GetSelectedComboBoxValue(cmbLabel);
+                int artistId = GetSelectedComboBoxValue(cmbArtist);
+                int albumId = GetSelectedComboBoxValue(cmbAlbum);
 
                 if (genreId == -1 || studioId == -1 || directorId == -1 || labelId == -1 || artistId == -1 || albumId == -1)
                 {
