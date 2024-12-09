@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
-using Npgsql; // Для работы с PostgreSQL
+using Npgsql;
 
 namespace kursDB1.Views
 {
     public partial class AddArtForm : Form
     {
-        // Строка подключения к базе данных PostgreSQL
         private readonly string _connectionString = "Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1";
 
         public AddArtForm()
@@ -17,6 +16,20 @@ namespace kursDB1.Views
 
         private void AddArtForm_Load(object sender, EventArgs e)
         {
+            try
+            {
+                // Загрузка всех связанных сущностей в ComboBox
+                LoadComboBox(cmbGenres, "genres", "id", "name");
+                LoadComboBox(cmbStudios, "studios", "id", "name");
+                LoadComboBox(cmbDirectors, "directors", "id", "name");
+                LoadComboBox(cmbLabels, "labels", "id", "name");
+                LoadComboBox(cmbArtists, "artists", "id", "name");
+                LoadComboBox(cmbAlbums, "albums", "id", "name");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке данных: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -24,58 +37,35 @@ namespace kursDB1.Views
             try
             {
                 string name = txtName.Text.Trim();
-                int duration;
-
-                // Проверка, чтобы строка duration была числом
-                if (!int.TryParse(txtDuration.Text, out duration) || duration <= 0)
+                if (!int.TryParse(txtDuration.Text.Trim(), out int duration) || duration <= 0)
                 {
-                    MessageBox.Show("Пожалуйста, укажите корректную продолжительность.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Введите корректное значение продолжительности.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                // Проверяем вручную введённые данные
-                string genreName = txtGenre.Text.Trim();
-                string directorName = txtDirector.Text.Trim();
-                string studioName = txtStudio.Text.Trim();
-                string labelName = txtLabel.Text.Trim();
-                string artistName = txtArtist.Text.Trim();
-                string albumName = txtAlbum.Text.Trim();
+                // Получение выбранных значений из ComboBox
+                int genreId = GetSelectedComboBoxValue(cmbGenres);
+                int studioId = GetSelectedComboBoxValue(cmbStudios);
+                int directorId = GetSelectedComboBoxValue(cmbDirectors);
+                int labelId = GetSelectedComboBoxValue(cmbLabels);
+                int artistId = GetSelectedComboBoxValue(cmbArtists);
+                int albumId = GetSelectedComboBoxValue(cmbAlbums);
 
-                if (string.IsNullOrWhiteSpace(genreName) ||
-                    string.IsNullOrWhiteSpace(directorName) ||
-                    string.IsNullOrWhiteSpace(studioName) ||
-                    string.IsNullOrWhiteSpace(labelName) ||
-                    string.IsNullOrWhiteSpace(artistName) ||
-                    string.IsNullOrWhiteSpace(albumName))
+                if (genreId == -1 || studioId == -1 || directorId == -1 || labelId == -1 || artistId == -1 || albumId == -1)
                 {
-                    MessageBox.Show("Пожалуйста, заполните все поля корректно.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Выберите все связанные сущности из списка.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-
-                // Получаем ID для каждого типа данных
-                int genreId = GetEntityIdByName("Genres", genreName);
-                int directorId = GetEntityIdByName("Directors", directorName);
-                int studioId = GetEntityIdByName("Studios", studioName);
-                int labelId = GetEntityIdByName("Labels", labelName);
-                int artistId = GetEntityIdByName("Artists", artistName);
-                int albumId = GetEntityIdByName("Albums", albumName);
-
-                // Если какой-либо элемент не найден, возвращаем ошибку
-                //if (genreId == -1 || directorId == -1 || studioId == -1 || labelId == -1 || artistId == -1 || albumId == -1)
-                //{
-                //    MessageBox.Show("Указанные данные не найдены в базе данных. Проверьте правильность ввода.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //    return;
-                //}
-
-                // SQL-запрос для добавления произведения
-                string query = "INSERT INTO Arts (name, duration, id_genre, id_director, id_studio, id_label, id_artist, id_album) " +
-                               $"VALUES ('{name}', '{duration}', {genreId}, {directorId}, {studioId}, {labelId}, {artistId}, {albumId})";
 
                 using (var connection = new NpgsqlConnection(_connectionString))
                 {
+                    string query = $@"
+                        INSERT INTO Arts (name, duration, id_genre, id_director, id_studio, id_label, id_artist, id_album) 
+                        VALUES ('{name}', '{duration}', {genreId}, {directorId}, {studioId}, {labelId}, {artistId}, {albumId})";
+
                     using (var command = new NpgsqlCommand(query, connection))
                     {
-                        // Параметры для запроса
+                        // Передача параметров для предотвращения SQL-инъекций
                         command.Parameters.AddWithValue("@name", name);
                         command.Parameters.AddWithValue("@duration", duration);
                         command.Parameters.AddWithValue("@genreId", genreId);
@@ -85,7 +75,7 @@ namespace kursDB1.Views
                         command.Parameters.AddWithValue("@artistId", artistId);
                         command.Parameters.AddWithValue("@albumId", albumId);
 
-                        // Открытие соединения и выполнение команды
+                        // Выполнение команды
                         connection.Open();
                         int rowsAffected = command.ExecuteNonQuery();
 
@@ -108,33 +98,60 @@ namespace kursDB1.Views
         }
 
         /// <summary>
-        /// Метод для получения ID записи по её имени из указанной таблицы.
+        /// Загрузка данных в ComboBox.
         /// </summary>
+        /// <param name="comboBox">ComboBox для заполнения.</param>
         /// <param name="tableName">Имя таблицы в базе данных.</param>
-        /// <param name="entityName">Имя записи.</param>
-        /// <returns>ID записи или -1, если запись не найдена.</returns>
-        private int GetEntityIdByName(string tableName, string entityName)
+        /// <param name="valueMember">Поле ID.</param>
+        /// <param name="displayMember">Поле для отображения.</param>
+        private void LoadComboBox(ComboBox comboBox, string tableName, string valueMember, string displayMember)
         {
-            string query = $"SELECT id FROM {tableName} WHERE name = '{entityName}'";
-
             using (var connection = new NpgsqlConnection(_connectionString))
             {
+                string query = $"SELECT {valueMember}, {displayMember} FROM {tableName}";
                 using (var command = new NpgsqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@entityName", entityName);
                     connection.Open();
-
                     using (var reader = command.ExecuteReader())
                     {
-                        if (reader.Read())
-                        {
-                            return reader.GetInt32(0); // Возвращаем ID записи
-                        }
+                        var dataTable = new DataTable();
+                        dataTable.Load(reader);
+                        comboBox.DataSource = dataTable;
+                        comboBox.DisplayMember = displayMember;
+                        comboBox.ValueMember = valueMember;
+                        comboBox.SelectedIndex = -1; // Убираем начальный выбор
                     }
                 }
             }
+        }
 
-            return -1; // Если запись не найдена
+        /// <summary>
+        /// Получает выбранное значение ID из ComboBox.
+        /// </summary>
+        /// <param name="comboBox">ComboBox с выбором.</param>
+        /// <returns>ID или -1, если ничего не выбрано.</returns>
+        private int GetSelectedComboBoxValue(ComboBox comboBox)
+        {
+            if (comboBox.SelectedItem is DataRowView rowView)
+            {
+                return Convert.ToInt32(rowView[comboBox.ValueMember]);
+            }
+            return -1; // Ничего не выбрано
+        }
+
+        private void txtName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblDirector_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbLabel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

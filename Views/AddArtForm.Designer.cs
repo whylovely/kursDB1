@@ -5,13 +5,21 @@
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.TextBox txtDuration;
-        private System.Windows.Forms.TextBox txtGenre;
-        private System.Windows.Forms.TextBox txtDirector;
-        private System.Windows.Forms.TextBox txtStudio;
-        private System.Windows.Forms.TextBox txtLabel;
-        private System.Windows.Forms.TextBox txtArtist;
-        private System.Windows.Forms.TextBox txtAlbum;
+        private System.Windows.Forms.ComboBox cmbGenre;
+        private System.Windows.Forms.ComboBox cmbDirector;
+        private System.Windows.Forms.ComboBox cmbStudio;
+        private System.Windows.Forms.ComboBox cmbLabel;
+        private System.Windows.Forms.ComboBox cmbArtist;
+        private System.Windows.Forms.ComboBox cmbAlbum;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Label lblName;
+        private System.Windows.Forms.Label lblDuration;
+        private System.Windows.Forms.Label lblGenre;
+        private System.Windows.Forms.Label lblDirector;
+        private System.Windows.Forms.Label lblStudio;
+        private System.Windows.Forms.Label lblLabel;
+        private System.Windows.Forms.Label lblArtist;
+        private System.Windows.Forms.Label lblAlbum;
 
         protected override void Dispose(bool disposing)
         {
@@ -24,98 +32,182 @@
 
         private void InitializeComponent()
         {
-            this.txtName = new System.Windows.Forms.TextBox();
-            this.txtDuration = new System.Windows.Forms.TextBox();
-            this.txtGenre = new System.Windows.Forms.TextBox();
-            this.txtDirector = new System.Windows.Forms.TextBox();
-            this.txtStudio = new System.Windows.Forms.TextBox();
-            this.txtLabel = new System.Windows.Forms.TextBox();
-            this.txtArtist = new System.Windows.Forms.TextBox();
-            this.txtAlbum = new System.Windows.Forms.TextBox();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-
+            txtName = new TextBox();
+            txtDuration = new TextBox();
+            cmbGenre = new ComboBox();
+            cmbDirector = new ComboBox();
+            cmbStudio = new ComboBox();
+            cmbLabel = new ComboBox();
+            cmbArtist = new ComboBox();
+            cmbAlbum = new ComboBox();
+            btnSave = new Button();
+            lblName = new Label();
+            lblDuration = new Label();
+            lblGenre = new Label();
+            lblDirector = new Label();
+            lblStudio = new Label();
+            lblLabel = new Label();
+            lblArtist = new Label();
+            lblAlbum = new Label();
+            SuspendLayout();
+            // 
             // txtName
-            this.txtName.Location = new System.Drawing.Point(12, 12);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(260, 23);
-            this.txtName.TabIndex = 0;
-            this.txtName.Text = "Название";
-
+            // 
+            txtName.Location = new Point(145, 15);
+            txtName.Name = "txtName";
+            txtName.Size = new Size(260, 23);
+            txtName.TabIndex = 1;
+            txtName.TextChanged += txtName_TextChanged;
+            // 
             // txtDuration
-            this.txtDuration.Location = new System.Drawing.Point(12, 40);
-            this.txtDuration.Name = "txtDuration";
-            this.txtDuration.Size = new System.Drawing.Size(260, 23);
-            this.txtDuration.TabIndex = 1;
-            this.txtDuration.Text = "Продолжительность (введите минуты)";
-
-            // txtGenre
-            this.txtGenre.Location = new System.Drawing.Point(12, 68);
-            this.txtGenre.Name = "txtGenre";
-            this.txtGenre.Size = new System.Drawing.Size(260, 23);
-            this.txtGenre.TabIndex = 2;
-            this.txtGenre.Text = "Жанр";
-
-            // txtDirector
-            this.txtDirector.Location = new System.Drawing.Point(12, 96);
-            this.txtDirector.Name = "txtDirector";
-            this.txtDirector.Size = new System.Drawing.Size(260, 23);
-            this.txtDirector.TabIndex = 3;
-            this.txtDirector.Text = "Режиссер";
-
-            // txtStudio
-            this.txtStudio.Location = new System.Drawing.Point(12, 124);
-            this.txtStudio.Name = "txtStudio";
-            this.txtStudio.Size = new System.Drawing.Size(260, 23);
-            this.txtStudio.TabIndex = 4;
-            this.txtStudio.Text = "Студия";
-
-            // txtLabel
-            this.txtLabel.Location = new System.Drawing.Point(12, 152);
-            this.txtLabel.Name = "txtLabel";
-            this.txtLabel.Size = new System.Drawing.Size(260, 23);
-            this.txtLabel.TabIndex = 5;
-            this.txtLabel.Text = "Лейбл";
-
-            // txtArtist
-            this.txtArtist.Location = new System.Drawing.Point(12, 180);
-            this.txtArtist.Name = "txtArtist";
-            this.txtArtist.Size = new System.Drawing.Size(260, 23);
-            this.txtArtist.TabIndex = 6;
-            this.txtArtist.Text = "Артист";
-
-            // txtAlbum
-            this.txtAlbum.Location = new System.Drawing.Point(12, 208);
-            this.txtAlbum.Name = "txtAlbum";
-            this.txtAlbum.Size = new System.Drawing.Size(260, 23);
-            this.txtAlbum.TabIndex = 7;
-            this.txtAlbum.Text = "Альбом";
-
+            // 
+            txtDuration.Location = new Point(145, 47);
+            txtDuration.Name = "txtDuration";
+            txtDuration.Size = new Size(260, 23);
+            txtDuration.TabIndex = 3;
+            // 
+            // cmbGenre
+            // 
+            cmbGenre.Location = new Point(145, 76);
+            cmbGenre.Name = "cmbGenre";
+            cmbGenre.Size = new Size(260, 23);
+            cmbGenre.TabIndex = 5;
+            // 
+            // cmbDirector
+            // 
+            cmbDirector.Location = new Point(145, 105);
+            cmbDirector.Name = "cmbDirector";
+            cmbDirector.Size = new Size(260, 23);
+            cmbDirector.TabIndex = 7;
+            // 
+            // cmbStudio
+            // 
+            cmbStudio.Location = new Point(145, 134);
+            cmbStudio.Name = "cmbStudio";
+            cmbStudio.Size = new Size(260, 23);
+            cmbStudio.TabIndex = 9;
+            // 
+            // cmbLabel
+            // 
+            cmbLabel.Location = new Point(145, 163);
+            cmbLabel.Name = "cmbLabel";
+            cmbLabel.Size = new Size(260, 23);
+            cmbLabel.TabIndex = 11;
+            cmbLabel.SelectedIndexChanged += cmbLabel_SelectedIndexChanged;
+            // 
+            // cmbArtist
+            // 
+            cmbArtist.Location = new Point(145, 192);
+            cmbArtist.Name = "cmbArtist";
+            cmbArtist.Size = new Size(260, 23);
+            cmbArtist.TabIndex = 13;
+            // 
+            // cmbAlbum
+            // 
+            cmbAlbum.Location = new Point(145, 221);
+            cmbAlbum.Name = "cmbAlbum";
+            cmbAlbum.Size = new Size(260, 23);
+            cmbAlbum.TabIndex = 15;
+            // 
             // btnSave
-            this.btnSave.Location = new System.Drawing.Point(12, 236);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(260, 23);
-            this.btnSave.TabIndex = 8;
-            this.btnSave.Text = "Сохранить";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-
+            // 
+            btnSave.Location = new Point(145, 250);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(260, 30);
+            btnSave.TabIndex = 16;
+            btnSave.Text = "Сохранить";
+            btnSave.Click += btnSave_Click;
+            // 
+            // lblName
+            // 
+            lblName.Location = new Point(12, 18);
+            lblName.Name = "lblName";
+            lblName.Size = new Size(100, 23);
+            lblName.TabIndex = 0;
+            lblName.Text = "Название:";
+            // 
+            // lblDuration
+            // 
+            lblDuration.Location = new Point(12, 47);
+            lblDuration.Name = "lblDuration";
+            lblDuration.Size = new Size(127, 23);
+            lblDuration.TabIndex = 2;
+            lblDuration.Text = "Продолжительность:";
+            // 
+            // lblGenre
+            // 
+            lblGenre.Location = new Point(12, 79);
+            lblGenre.Name = "lblGenre";
+            lblGenre.Size = new Size(100, 23);
+            lblGenre.TabIndex = 4;
+            lblGenre.Text = "Жанр:";
+            // 
+            // lblDirector
+            // 
+            lblDirector.Location = new Point(12, 108);
+            lblDirector.Name = "lblDirector";
+            lblDirector.Size = new Size(100, 23);
+            lblDirector.TabIndex = 6;
+            lblDirector.Text = "Режиссер:";
+            lblDirector.Click += lblDirector_Click;
+            // 
+            // lblStudio
+            // 
+            lblStudio.Location = new Point(12, 137);
+            lblStudio.Name = "lblStudio";
+            lblStudio.Size = new Size(100, 23);
+            lblStudio.TabIndex = 8;
+            lblStudio.Text = "Студия:";
+            // 
+            // lblLabel
+            // 
+            lblLabel.Location = new Point(12, 166);
+            lblLabel.Name = "lblLabel";
+            lblLabel.Size = new Size(100, 23);
+            lblLabel.TabIndex = 10;
+            lblLabel.Text = "Лейбл:";
+            // 
+            // lblArtist
+            // 
+            lblArtist.Location = new Point(12, 195);
+            lblArtist.Name = "lblArtist";
+            lblArtist.Size = new Size(100, 23);
+            lblArtist.TabIndex = 12;
+            lblArtist.Text = "Артист:";
+            // 
+            // lblAlbum
+            // 
+            lblAlbum.Location = new Point(12, 224);
+            lblAlbum.Name = "lblAlbum";
+            lblAlbum.Size = new Size(100, 23);
+            lblAlbum.TabIndex = 14;
+            lblAlbum.Text = "Альбом:";
+            // 
             // AddArtForm
-            this.ClientSize = new System.Drawing.Size(284, 271);
-            this.Controls.Add(this.txtName);
-            this.Controls.Add(this.txtDuration);
-            this.Controls.Add(this.txtGenre);
-            this.Controls.Add(this.txtDirector);
-            this.Controls.Add(this.txtStudio);
-            this.Controls.Add(this.txtLabel);
-            this.Controls.Add(this.txtArtist);
-            this.Controls.Add(this.txtAlbum);
-            this.Controls.Add(this.btnSave);
-            this.Name = "AddArtForm";
-            this.Text = "Добавить произведение";
-            this.Load += new System.EventHandler(this.AddArtForm_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            // 
+            ClientSize = new Size(423, 297);
+            Controls.Add(lblName);
+            Controls.Add(txtName);
+            Controls.Add(lblDuration);
+            Controls.Add(txtDuration);
+            Controls.Add(lblGenre);
+            Controls.Add(cmbGenre);
+            Controls.Add(lblDirector);
+            Controls.Add(cmbDirector);
+            Controls.Add(lblStudio);
+            Controls.Add(cmbStudio);
+            Controls.Add(lblLabel);
+            Controls.Add(cmbLabel);
+            Controls.Add(lblArtist);
+            Controls.Add(cmbArtist);
+            Controls.Add(lblAlbum);
+            Controls.Add(cmbAlbum);
+            Controls.Add(btnSave);
+            Name = "AddArtForm";
+            Text = "Добавить произведение";
+            Load += AddArtForm_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
     }
 }
