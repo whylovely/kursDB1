@@ -212,17 +212,17 @@ namespace kursDB1.Views
                 {
                     conn.Open();
                     string query = @"
-            SELECT 
-                genre.name AS Жанр,
-                COUNT(art.id) AS Количество_произведений,
-                AVG(mark.mark) AS Средняя_оценка,
-                MAX(art.name) AS Наиболее_популярное_произведение
-            FROM 
-                genres genre
-                LEFT JOIN arts art ON art.id_genre = genre.id
-                LEFT JOIN marks mark ON art.id = mark.id_art
-            GROUP BY 
-                genre.name";
+                                    SELECT 
+                                        genre.name AS Жанр,
+                                        COUNT(art.id) AS Количество_произведений,
+                                        COALESCE(AVG(mark.mark), 0) AS Средняя_оценка,
+                                        MAX(art.name) AS Наиболее_популярное_произведение
+                                    FROM 
+                                        genres genre
+                                        LEFT JOIN arts art ON art.id_genre = genre.id
+                                        LEFT JOIN marks mark ON art.id = mark.id_art
+                                    GROUP BY 
+                                        genre.name";
 
                     using (var cmd = new NpgsqlCommand(query, conn))
                     using (var reader = cmd.ExecuteReader())
@@ -265,14 +265,20 @@ namespace kursDB1.Views
                                         table.AddCell(new PdfPCell(new Phrase(reader["Жанр"].ToString(), font)));
                                         table.AddCell(new PdfPCell(new Phrase(reader["Количество_произведений"].ToString(), font)));
 
-                                        double avgMark = Convert.ToDouble(reader["Средняя_оценка"]);
+                                        double avgMark = reader["Средняя_оценка"] != DBNull.Value
+                                                         ? Convert.ToDouble(reader["Средняя_оценка"])
+                                                         : 0.0;
                                         table.AddCell(new PdfPCell(new Phrase(avgMark.ToString("F2"), font)));
 
                                         string stars = GenerateStars(avgMark);
                                         table.AddCell(new PdfPCell(new Phrase(stars, font)));
 
-                                        table.AddCell(new PdfPCell(new Phrase(reader["Наиболее_популярное_произведение"].ToString(), font)));
+                                        table.AddCell(new PdfPCell(new Phrase(
+                                            reader["Наиболее_популярное_произведение"] != DBNull.Value
+                                            ? reader["Наиболее_популярное_произведение"].ToString()
+                                            : "Нет данных", font)));
                                     }
+
 
                                     doc.Add(table);
 
@@ -296,12 +302,13 @@ namespace kursDB1.Views
 
         private string GenerateStars(double avgMark)
         {
-            if (avgMark >= 8) return "★★★★★";
-            if (avgMark >= 7) return "★★★★";
-            if (avgMark >= 5) return "★★★";
-            if (avgMark >= 3) return "★★";
-            if (avgMark >= 1) return "★";
-            return "☆";
+            if (avgMark >= 8.0) return "\u2605\u2605\u2605\u2605\u2605";
+            else if (avgMark >= 7.0) return "\u2605\u2605\u2605\u2605";
+            else if (avgMark >= 5.0) return "\u2605\u2605\u2605";
+            else if (avgMark >= 3.0) return "\u2605\u2605";
+            else if (avgMark >= 1.0) return "\u2605";
+            else return "\u2606";
+
         }
     }
 }

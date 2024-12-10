@@ -1,6 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Windows.Forms;
+﻿using System.Data;
 using Npgsql;
 
 namespace kursDB1.Views
@@ -47,12 +45,54 @@ namespace kursDB1.Views
             if (dgvArts.SelectedRows.Count > 0)
             {
                 int selectedArtId = (int)dgvArts.SelectedRows[0].Cells["id"].Value;
-                _onArtSelected?.Invoke(selectedArtId);
-                this.Close();
+                DeleteArt(selectedArtId);
+                LoadArts(); // Обновить таблицу после удаления
             }
             else
             {
                 MessageBox.Show("Выберите произведение для удаления.");
+            }
+        }
+
+        private void DeleteArt(int artId)
+        {
+            try
+            {
+                using (var connection = new NpgsqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    // Начать транзакцию
+                    using (var transaction = connection.BeginTransaction())
+                    {
+                        // Удалить оценки, связанные с произведением
+                        string deleteMarksQuery = "DELETE FROM marks WHERE id_art = @artId";
+                        using (var deleteMarksCommand = new NpgsqlCommand(deleteMarksQuery, connection))
+                        {
+                            deleteMarksCommand.Parameters.AddWithValue("artId", artId);
+                            deleteMarksCommand.Transaction = transaction;
+                            deleteMarksCommand.ExecuteNonQuery();
+                        }
+
+                        // Удалить произведение
+                        string deleteArtQuery = "DELETE FROM arts WHERE id = @artId";
+                        using (var deleteArtCommand = new NpgsqlCommand(deleteArtQuery, connection))
+                        {
+                            deleteArtCommand.Parameters.AddWithValue("artId", artId);
+                            deleteArtCommand.Transaction = transaction;
+                            deleteArtCommand.ExecuteNonQuery();
+                        }
+
+                        // Завершить транзакцию
+                        transaction.Commit();
+                    }
+
+                    MessageBox.Show("Произведение успешно удалено.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка удаления произведения: {ex.Message}");
             }
         }
 

@@ -1,5 +1,3 @@
-using System;
-using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using kursDB1.Utils; 
