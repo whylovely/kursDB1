@@ -82,8 +82,11 @@ namespace kursDB1.Views
                                     {
                                         table.AddCell(new PdfPCell(new Phrase(reader["ID_пользователя"].ToString(), font)));
                                         table.AddCell(new PdfPCell(new Phrase(reader["ФИО"].ToString(), font)));
-                                        table.AddCell(new PdfPCell(new Phrase(reader["Уровень_доступа"].ToString(), font)));
-                                        table.AddCell(new PdfPCell(new Phrase(reader["Средняя_оценка"].ToString(), font)));
+                                        table.AddCell(new PdfPCell(new Phrase(reader["Уровень_доступа"].ToString(), font))); 
+                                        double avgMark = reader["Средняя_оценка"] != DBNull.Value
+                                                         ? Convert.ToDouble(reader["Средняя_оценка"])
+                                                         : 0.0;
+                                        table.AddCell(new PdfPCell(new Phrase(avgMark.ToString("F2"), font)));
                                         table.AddCell(new PdfPCell(new Phrase(reader["Количество_оценок"].ToString(), font)));
                                     }
 
@@ -180,8 +183,11 @@ namespace kursDB1.Views
                                         table.AddCell(new PdfPCell(new Phrase(reader["Режиссёр"].ToString(), font)));
                                         table.AddCell(new PdfPCell(new Phrase(reader["Лейбл"].ToString(), font)));
                                         table.AddCell(new PdfPCell(new Phrase(reader["Исполнитель"].ToString(), font)));
-                                        table.AddCell(new PdfPCell(new Phrase(reader["Альбом"].ToString(), font)));
-                                        table.AddCell(new PdfPCell(new Phrase(reader["Средняя_оценка"].ToString(), font)));
+                                        table.AddCell(new PdfPCell(new Phrase(reader["Альбом"].ToString(), font))); 
+                                        double avgMark = reader["Средняя_оценка"] != DBNull.Value
+                                                         ? Convert.ToDouble(reader["Средняя_оценка"])
+                                                         : 0.0;
+                                        table.AddCell(new PdfPCell(new Phrase(avgMark.ToString("F2"), font)));
                                     }
 
                                     doc.Add(table);
@@ -302,12 +308,12 @@ namespace kursDB1.Views
 
         private string GenerateStars(double avgMark)
         {
-            if (avgMark >= 8.0) return "\u2605\u2605\u2605\u2605\u2605";
-            else if (avgMark >= 7.0) return "\u2605\u2605\u2605\u2605";
-            else if (avgMark >= 5.0) return "\u2605\u2605\u2605";
-            else if (avgMark >= 3.0) return "\u2605\u2605";
-            else if (avgMark >= 1.0) return "\u2605";
-            else return "\u2606";
+            if (avgMark >= 8.0) return "*****";
+            else if (avgMark >= 7.0) return "****";
+            else if (avgMark >= 5.0) return "***";
+            else if (avgMark >= 3.0) return "**";
+            else if (avgMark >= 1.0) return "*";
+            else return "0";
 
         }
     }

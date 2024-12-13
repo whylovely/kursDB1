@@ -66,7 +66,7 @@ namespace kursDB1.Views
                     using (var transaction = connection.BeginTransaction())
                     {
                         // Удалить оценки, связанные с произведением
-                        string deleteMarksQuery = "DELETE FROM marks WHERE id_art = @artId";
+                        string deleteMarksQuery = $"DELETE FROM marks WHERE id_art = {artId}";
                         using (var deleteMarksCommand = new NpgsqlCommand(deleteMarksQuery, connection))
                         {
                             deleteMarksCommand.Parameters.AddWithValue("artId", artId);
@@ -75,7 +75,7 @@ namespace kursDB1.Views
                         }
 
                         // Удалить произведение
-                        string deleteArtQuery = "DELETE FROM arts WHERE id = @artId";
+                        string deleteArtQuery = $"DELETE FROM arts WHERE id = {artId}";
                         using (var deleteArtCommand = new NpgsqlCommand(deleteArtQuery, connection))
                         {
                             deleteArtCommand.Parameters.AddWithValue("artId", artId);
