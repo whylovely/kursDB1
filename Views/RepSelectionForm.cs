@@ -218,17 +218,25 @@ namespace kursDB1.Views
                 {
                     conn.Open();
                     string query = @"
-                                    SELECT 
-                                        genre.name AS Жанр,
-                                        COUNT(art.id) AS Количество_произведений,
-                                        COALESCE(AVG(mark.mark), 0) AS Средняя_оценка,
-                                        MAX(art.name) AS Наиболее_популярное_произведение
-                                    FROM 
-                                        genres genre
-                                        LEFT JOIN arts art ON art.id_genre = genre.id
-                                        LEFT JOIN marks mark ON art.id = mark.id_art
-                                    GROUP BY 
-                                        genre.name";
+            SELECT 
+                genre.name AS Жанр,
+                COUNT(art.id) AS Количество_произведений,
+                COALESCE(AVG(mark.mark), 0) AS Средняя_оценка,
+                CASE
+                    WHEN COALESCE(AVG(mark.mark), 0) >= 8.0 THEN '*****'
+                    WHEN COALESCE(AVG(mark.mark), 0) >= 7.0 THEN '****'
+                    WHEN COALESCE(AVG(mark.mark), 0) >= 5.0 THEN '***'
+                    WHEN COALESCE(AVG(mark.mark), 0) >= 3.0 THEN '**'
+                    WHEN COALESCE(AVG(mark.mark), 0) >= 1.0 THEN '*'
+                    ELSE '0'
+                END AS Звезды,
+                MAX(art.name) AS Наиболее_популярное_произведение
+            FROM 
+                genres genre
+                LEFT JOIN arts art ON art.id_genre = genre.id
+                LEFT JOIN marks mark ON art.id = mark.id_art
+            GROUP BY 
+                genre.name";
 
                     using (var cmd = new NpgsqlCommand(query, conn))
                     using (var reader = cmd.ExecuteReader())
@@ -270,21 +278,13 @@ namespace kursDB1.Views
                                     {
                                         table.AddCell(new PdfPCell(new Phrase(reader["Жанр"].ToString(), font)));
                                         table.AddCell(new PdfPCell(new Phrase(reader["Количество_произведений"].ToString(), font)));
-
-                                        double avgMark = reader["Средняя_оценка"] != DBNull.Value
-                                                         ? Convert.ToDouble(reader["Средняя_оценка"])
-                                                         : 0.0;
-                                        table.AddCell(new PdfPCell(new Phrase(avgMark.ToString("F2"), font)));
-
-                                        string stars = GenerateStars(avgMark);
-                                        table.AddCell(new PdfPCell(new Phrase(stars, font)));
-
+                                        table.AddCell(new PdfPCell(new Phrase(Convert.ToDouble(reader["Средняя_оценка"]).ToString("F2"), font)));
+                                        table.AddCell(new PdfPCell(new Phrase(reader["Звезды"].ToString(), font)));
                                         table.AddCell(new PdfPCell(new Phrase(
                                             reader["Наиболее_популярное_произведение"] != DBNull.Value
                                             ? reader["Наиболее_популярное_произведение"].ToString()
                                             : "Нет данных", font)));
                                     }
-
 
                                     doc.Add(table);
 
@@ -304,17 +304,6 @@ namespace kursDB1.Views
                     MessageBox.Show($"Ошибка при генерации отчета: {ex.Message}", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-        }
-
-        private string GenerateStars(double avgMark)
-        {
-            if (avgMark >= 8.0) return "*****";
-            else if (avgMark >= 7.0) return "****";
-            else if (avgMark >= 5.0) return "***";
-            else if (avgMark >= 3.0) return "**";
-            else if (avgMark >= 1.0) return "*";
-            else return "0";
-
         }
     }
 }

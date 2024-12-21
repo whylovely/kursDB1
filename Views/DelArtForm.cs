@@ -46,7 +46,7 @@ namespace kursDB1.Views
             {
                 int selectedArtId = (int)dgvArts.SelectedRows[0].Cells["id"].Value;
                 DeleteArt(selectedArtId);
-                LoadArts(); // Обновить таблицу после удаления
+                LoadArts();
             }
             else
             {
@@ -62,10 +62,8 @@ namespace kursDB1.Views
                 {
                     connection.Open();
 
-                    // Начать транзакцию
                     using (var transaction = connection.BeginTransaction())
                     {
-                        // Удалить оценки, связанные с произведением
                         string deleteMarksQuery = $"DELETE FROM marks WHERE id_art = {artId}";
                         using (var deleteMarksCommand = new NpgsqlCommand(deleteMarksQuery, connection))
                         {
@@ -74,7 +72,6 @@ namespace kursDB1.Views
                             deleteMarksCommand.ExecuteNonQuery();
                         }
 
-                        // Удалить произведение
                         string deleteArtQuery = $"DELETE FROM arts WHERE id = {artId}";
                         using (var deleteArtCommand = new NpgsqlCommand(deleteArtQuery, connection))
                         {
@@ -83,7 +80,6 @@ namespace kursDB1.Views
                             deleteArtCommand.ExecuteNonQuery();
                         }
 
-                        // Завершить транзакцию
                         transaction.Commit();
                     }
 
