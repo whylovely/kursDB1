@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data.SqlClient;
+﻿using Npgsql;
 
 namespace kursDB1.Utils
 {
@@ -15,82 +14,72 @@ namespace kursDB1.Utils
         public void EnsureDatabaseCreated()
         {
             string[] createTableCommands = {
-                @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='albums' AND xtype='U')
-                CREATE TABLE albums (
-                    id INT IDENTITY PRIMARY KEY,
-                    name NVARCHAR(255),
-                    count_arts INT,
+                @"CREATE TABLE IF NOT EXISTS albums (
+                    id SERIAL PRIMARY KEY,
+                    name VARCHAR(255),
+                    count_arts INTEGER,
                     drop_day DATE);",
 
-                @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='artists' AND xtype='U')
-                CREATE TABLE artists (
-                    id INT IDENTITY PRIMARY KEY,
-                    name NVARCHAR(255),
-                    count_arts INT);",
+                @"CREATE TABLE IF NOT EXISTS artists (
+                    id SERIAL PRIMARY KEY,
+                    name VARCHAR(255),
+                    count_arts INTEGER);",
 
-                @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='arts' AND xtype='U')
-                CREATE TABLE arts (
-                    id INT IDENTITY PRIMARY KEY,
-                    id_label INT FOREIGN KEY REFERENCES labels(id),
-                    id_artist INT FOREIGN KEY REFERENCES artists(id),
-                    id_album INT FOREIGN KEY REFERENCES albums(id),
-                    id_studio INT FOREIGN KEY REFERENCES studios(id),
-                    id_director INT FOREIGN KEY REFERENCES directors(id),
-                    id_genre INT FOREIGN KEY REFERENCES genres(id),
-                    duration INT,
-                    mark_art INT);",
+                @"CREATE TABLE IF NOT EXISTS arts (
+                    id SERIAL PRIMARY KEY,
+                    id_label INTEGER REFERENCES labels(id),
+                    id_artist INTEGER REFERENCES artists(id),
+                    id_album INTEGER REFERENCES albums(id),
+                    id_studio INTEGER REFERENCES studios(id),
+                    id_director INTEGER REFERENCES directors(id),
+                    id_genre INTEGER REFERENCES genres(id),
+                    duration INTEGER,
+                    mark_art INTEGER);",
 
-                @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='directors' AND xtype='U')
-                CREATE TABLE directors (
-                    id INT IDENTITY PRIMARY KEY,
-                    name NVARCHAR(255));",
+                @"CREATE TABLE IF NOT EXISTS directors (
+                    id SERIAL PRIMARY KEY,
+                    name VARCHAR(255));",
 
-                @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='genres' AND xtype='U')
-                CREATE TABLE genres (
-                    id INT IDENTITY PRIMARY KEY,
-                    name NVARCHAR(255));",
+                @"CREATE TABLE IF NOT EXISTS genres (
+                    id SERIAL PRIMARY KEY,
+                    name VARCHAR(255));",
 
-                @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='labels' AND xtype='U')
-                CREATE TABLE labels (
-                    id INT IDENTITY PRIMARY KEY,
-                    name NVARCHAR(255),
-                    count_arts INT,
+                @"CREATE TABLE IF NOT EXISTS labels (
+                    id SERIAL PRIMARY KEY,
+                    name VARCHAR(255),
+                    count_arts INTEGER,
                     b_date DATE);",
 
-                @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='marks' AND xtype='U')
-                CREATE TABLE marks (
-                    id INT IDENTITY PRIMARY KEY,
-                    id_user INT FOREIGN KEY REFERENCES users(id),
-                    id_art INT FOREIGN KEY REFERENCES arts(id),
-                    mark INT);",
+                @"CREATE TABLE IF NOT EXISTS marks (
+                    id SERIAL PRIMARY KEY,
+                    id_user INTEGER REFERENCES users(id),
+                    id_art INTEGER REFERENCES arts(id),
+                    mark INTEGER);",
 
-                @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='roles' AND xtype='U')
-                CREATE TABLE roles (
-                    id INT IDENTITY PRIMARY KEY,
-                    name NVARCHAR(255));",
+                @"CREATE TABLE IF NOT EXISTS roles (
+                    id SERIAL PRIMARY KEY,
+                    name VARCHAR(255));",
 
-                @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='studios' AND xtype='U')
-                CREATE TABLE studios (
-                    id INT IDENTITY PRIMARY KEY,
-                    name NVARCHAR(255),
-                    count_arts INT,
+                @"CREATE TABLE IF NOT EXISTS studios (
+                    id SERIAL PRIMARY KEY,
+                    name VARCHAR(255),
+                    count_arts INTEGER,
                     b_day DATE);",
 
-                @"IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='users' AND xtype='U')
-                CREATE TABLE users (
-                    id INT IDENTITY PRIMARY KEY,
-                    name NVARCHAR(255),
-                    email NVARCHAR(255),
-                    password NVARCHAR(255),
-                    role_id INT FOREIGN KEY REFERENCES roles(id));"
+                @"CREATE TABLE IF NOT EXISTS users (
+                    id SERIAL PRIMARY KEY,
+                    name VARCHAR(255),
+                    email VARCHAR(255),
+                    password VARCHAR(255),
+                    role_id INTEGER REFERENCES roles(id));"
             };
 
-            using (var connection = new SqlConnection(_connectionString))
+            using (var connection = new NpgsqlConnection(_connectionString))
             {
                 connection.Open();
                 foreach (var sql in createTableCommands)
                 {
-                    using (var command = new SqlCommand(sql, connection))
+                    using (var command = new NpgsqlCommand(sql, connection))
                     {
                         command.ExecuteNonQuery();
                     }
