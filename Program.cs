@@ -1,7 +1,5 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using kursDB1.Utils; 
-using kursDB1.Views;  
+using kursDB1.Utils;
+using kursDB1.Views;
 
 namespace kursDB1
 {
@@ -10,17 +8,13 @@ namespace kursDB1
         [STAThread]
         static void Main()
         {
-            var services = new ServiceCollection();
-            services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer("Server=localhost;Database=db1;Trusted_Connection=True;"));
-
-            services.AddSingleton<MainForm>();
-
-            var serviceProvider = services.BuildServiceProvider();
+            string connectionString = "Server=localhost;Database=db1;Trusted_Connection=True;";
+            var dbInitializer = new DatabaseInitializer(connectionString);
+            dbInitializer.EnsureDatabaseCreated();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(serviceProvider.GetRequiredService<MainForm>());
+            Application.Run(new MainForm());
         }
     }
 }
