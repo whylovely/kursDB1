@@ -8,7 +8,7 @@ namespace kursDB1
         [STAThread]
         static void Main()
         {
-            string connectionString = "Server=localhost;Database=db1;Trusted_Connection=True;";
+            string connectionString = "Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1";
             var dbInitializer = new DatabaseInitializer(connectionString);
             dbInitializer.EnsureDatabaseCreated();
 

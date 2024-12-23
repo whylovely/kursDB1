@@ -14,14 +14,14 @@ namespace kursDB1.Views
         {
             var loginForm = new LoginForm();
             loginForm.ShowDialog();
-            this.Close();
+            this.Hide();
         }
 
         private void btnReg_Click(object sender, EventArgs e)
         {
             var regForm = new RegForm();
             regForm.ShowDialog();
-            this.Close(); 
+            this.Hide();
         }
 
 
