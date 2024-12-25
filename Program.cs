@@ -10,8 +10,12 @@ namespace kursDB1
         {
             string connectionString = "Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1";
             var dbInitializer = new DatabaseInitializer(connectionString);
-            dbInitializer.EnsureDatabaseCreated();
-
+            if (!dbInitializer.DatabaseExists())
+            {
+                dbInitializer.CreateDatabase();
+                dbInitializer.EnsureDatabaseCreated();
+            }
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
