@@ -17,7 +17,7 @@ namespace kursDB1.Views
                 DateTime BDate = dtpBDate.Value;
                 string formattedBDay = BDate.ToString("yyyy-MM-dd");
 
-                string query = $"INSERT INTO labels (name, b_date) VALUES ('{labelName}', '{formattedBDay}')";
+                string query = "INSERT INTO labels (name, b_date) VALUES (@Name, @BDate)";
 
                 string connectionString = "Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1";
 

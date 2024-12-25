@@ -64,18 +64,18 @@ namespace kursDB1.Views
 
                     using (var transaction = connection.BeginTransaction())
                     {
-                        string deleteMarksQuery = $"DELETE FROM marks WHERE id_art = {artId}";
+                        string deleteMarksQuery = "DELETE FROM marks WHERE id_art = @artId";
                         using (var deleteMarksCommand = new NpgsqlCommand(deleteMarksQuery, connection))
                         {
-                            deleteMarksCommand.Parameters.AddWithValue("artId", artId);
+                            deleteMarksCommand.Parameters.AddWithValue("@artId", artId);
                             deleteMarksCommand.Transaction = transaction;
                             deleteMarksCommand.ExecuteNonQuery();
                         }
 
-                        string deleteArtQuery = $"DELETE FROM arts WHERE id = {artId}";
+                        string deleteArtQuery = "DELETE FROM arts WHERE id = @artId";
                         using (var deleteArtCommand = new NpgsqlCommand(deleteArtQuery, connection))
                         {
-                            deleteArtCommand.Parameters.AddWithValue("artId", artId);
+                            deleteArtCommand.Parameters.AddWithValue("@artId", artId);
                             deleteArtCommand.Transaction = transaction;
                             deleteArtCommand.ExecuteNonQuery();
                         }

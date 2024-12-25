@@ -55,9 +55,9 @@ namespace kursDB1.Views
 
                 using (var connection = new NpgsqlConnection(_connectionString))
                 {
-                    string query = $@"
+                    string query = @"
                         INSERT INTO Arts (name, duration, id_genre, id_director, id_studio, id_label, id_artist, id_album) 
-                        VALUES ('{name}', '{duration}', {genreId}, {directorId}, {studioId}, {labelId}, {artistId}, {albumId})";
+                        VALUES (@name, @duration, @genreId, @directorId, @studioId, @labelId, @artistId, @albumId)";
 
                     using (var command = new NpgsqlCommand(query, connection))
                     {

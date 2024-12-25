@@ -59,7 +59,7 @@ namespace kursDB1.Views
                 using (var connection = new Npgsql.NpgsqlConnection(connectionString))
                 {
                     connection.Open();
-                    string query = $"DELETE FROM arts WHERE id = {artId}";
+                    string query = "DELETE FROM arts WHERE id = @id";
                     using (var command = new Npgsql.NpgsqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@id", artId);

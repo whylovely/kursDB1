@@ -25,7 +25,7 @@ namespace kursDB1.Views
                 using (var connection = new NpgsqlConnection(_connectionString))
                 {
                     connection.Open();
-                    string query = $"SELECT * FROM arts WHERE id = {artId}";
+                    string query = "SELECT * FROM arts WHERE id = @id";
                     using (var command = new NpgsqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@id", artId);
@@ -57,7 +57,7 @@ namespace kursDB1.Views
                 using (var connection = new NpgsqlConnection(_connectionString))
                 {
                     connection.Open();
-                    var query = $"UPDATE arts SET name = '{name}', duration = '{duration}' WHERE id = {_artId}";
+                    var query = "UPDATE arts SET name = @name, duration = @duration WHERE id = @id";
                     using (var command = new NpgsqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@id", _artId);

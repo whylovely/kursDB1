@@ -36,8 +36,8 @@
             }
 
             try
-            {
-                string checkQuery = $"SELECT COUNT(*) FROM Users WHERE email = '{email}' OR name = '{username}'";
+            { 
+                string checkQuery = "SELECT COUNT(*) FROM Users WHERE email = @Email OR name = @Name";
                 using (var connection = new Npgsql.NpgsqlConnection(_connectionString))
                 {
                     var command = new Npgsql.NpgsqlCommand(checkQuery, connection);
@@ -54,7 +54,8 @@
                     }
                 }
 
-                string query = $"INSERT INTO Users (name, email, password, role_id) VALUES ('{username}', '{email}', '{password}', 2)";
+                
+                string query = "INSERT INTO Users (name, email, password, role_id) VALUES (@Name, @Email, @Password, 2)";
 
                 using (var connection = new Npgsql.NpgsqlConnection(_connectionString))
                 {

@@ -15,7 +15,7 @@ namespace kursDB1.Views
             {
                 string directorName = txtName.Text;
 
-                string query = $"INSERT INTO directors (name) VALUES ('{directorName}')";
+                string query = "INSERT INTO directors (name) VALUES (@Name)";
 
                 string connectionString = "Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1";
 

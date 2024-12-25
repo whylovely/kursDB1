@@ -15,7 +15,7 @@ namespace kursDB1.Views
             {
                 string Name = txtName.Text;
 
-                string query = $"INSERT INTO artists (name) VALUES ('{Name}')";
+                string query = "INSERT INTO artists (name) VALUES (@Name)";
 
                 string connectionString = "Host=localhost;Port=5433;Username=postgres;Password=2005;Database=db1";
 
