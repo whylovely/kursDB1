@@ -22,6 +22,14 @@ namespace kursDB1.Views
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         }
 
+        public AdminPanelForm AdminPanelForm
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         private void btnReportUserRating_Click(object sender, EventArgs e)
         {
             using (var conn = new NpgsqlConnection(ConnectionString))

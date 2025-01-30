@@ -10,6 +10,22 @@ namespace kursDB1.Views
             InitializeComponent();
         }
 
+        public RegForm RegForm
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public LoginForm LoginForm
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         private void btnLogin_Click(object sender, EventArgs e)
         {
             var loginForm = new LoginForm();

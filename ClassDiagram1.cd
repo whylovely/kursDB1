@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
+  <Class Name="kursDB1.Views.AddAlbumForm">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <Members>
+      <Method Name="AddAlbumForm" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAQAEAACAAAIAAAAAAAAAACCAAAAABAIAAAAAEIAAAU=</HashCode>
+      <FileName>Views\AddAlbumForm.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AddArtForm" />
+      <Property Name="AdminPanelForm" />
+      <Property Name="EditArtForm" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="kursDB1.Views.AddArtForm">
+    <Position X="2.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAwCAKACAABCAEAgCgCABDAAQhADKIAAAAhAMAAAU=</HashCode>
+      <FileName>Views\AddArtForm.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="DeleteArtForm" />
+      <Property Name="EditArtForm" />
+      <Property Name="RateArtForm" />
+      <Property Name="SelectArtForm" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="kursDB1.Views.AddArtistForm">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAEAAAAAAAAAAAAAAAAAACAAIAABAAAAAAAAIAAAQ=</HashCode>
+      <FileName>Views\AddArtistForm.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AdminPanelForm" />
+      <Property Name="AddAlbumForm" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="kursDB1.Views.AddDirectorForm">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAACAAAAABAAAAAAAAIAAAQ=</HashCode>
+      <FileName>Views\AddDirectorForm.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AdminPanelForm" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="kursDB1.Views.AddGenreForm">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAACAAAAABAAAAAAAAIAAAQ=</HashCode>
+      <FileName>Views\AddGenreForm.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AdminPanelForm" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="kursDB1.Views.AddLabelForm">
+    <Position X="7.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAACAAIAABAAAAAAAAIAAAQ=</HashCode>
+      <FileName>Views\AddLabelForm.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AdminPanelForm" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="kursDB1.Views.AddStudioForm">
+    <Position X="7.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAMAAAAAAAAAAAAAAAAAACAAAAABAAAAAAAAIAAAQ=</HashCode>
+      <FileName>Views\AddStudioForm.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AdminPanelForm" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="kursDB1.Views.AdminPanelForm">
+    <Position X="5.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAhACoBAEIAAAIgEQAQAAACCQAAQAAIAAAIIBLACCAA=</HashCode>
+      <FileName>Views\AdminPanelForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kursDB1.Views.DeleteArtForm">
+    <Position X="0.5" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAACAAAAEAAACAAEAGAAAAAAIoAAAAAAAAAQQ=</HashCode>
+      <FileName>Views\DelArtForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kursDB1.Views.EditArtForm">
+    <Position X="0.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAACAAAAAAAICgAAgCAAAAQBAIAAgABAJAAAQ=</HashCode>
+      <FileName>Views\EditArtForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kursDB1.Views.LoginForm">
+    <Position X="14.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAACCAAAAAAACAIAACAAAACIAAAgAAAABAAAA=</HashCode>
+      <FileName>Views\LoginForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kursDB1.Views.MainForm">
+    <Position X="11.25" Y="3.25" Width="1.5" />
+    <AssociationLine Name="RegForm" Type="kursDB1.Views.RegForm">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.14" Y="0.06" Height="0.182" Width="1.387" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAACAAAAAAQACAEIACAAAICAAAAAAAAIBAAAA=</HashCode>
+      <FileName>Views\MainForm.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="RegForm" />
+      <Property Name="LoginForm" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="kursDB1.Views.RateArtForm">
+    <Position X="5.25" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAEAAAAAICAAAACAAAAAAAIACAAAAAQAAA=</HashCode>
+      <FileName>Views\RateArtForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kursDB1.Views.RegForm">
+    <Position X="14.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAACACAAAAAAAACIIAACAEAAAIAIAhBAAAAgAEE=</HashCode>
+      <FileName>Views\RegForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kursDB1.Views.ReportSelectionForm">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAACAAAAIAABCAAAIiEIAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Views\RepSelectionForm.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AdminPanelForm" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="kursDB1.Views.SelectArtForm">
+    <Position X="7.25" Y="9.5" Width="1.5" />
+    <Members>
+      <Property Name="SelectedArtId" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>GAAAAAAAACBAAAAAAACAAAACAIAAAAIAACAAAAAAAAA=</HashCode>
+      <FileName>Views\SelectEditArtForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kursDB1.Views.UserPanelForm">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAACAECQAAIAAAACAQAACAIIAAAIIACBAAARAAAI=</HashCode>
+      <FileName>Views\UserPanelForm.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="AddAlbumForm" />
+      <Property Name="AddArtistForm" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

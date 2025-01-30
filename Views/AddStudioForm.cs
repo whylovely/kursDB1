@@ -9,6 +9,14 @@ namespace kursDB1.Views
             InitializeComponent();
         }
 
+        public AdminPanelForm AdminPanelForm
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             try

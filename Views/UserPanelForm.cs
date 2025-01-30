@@ -18,6 +18,22 @@ namespace kursDB1.Views
             _userId = userId;
         }
 
+        public AddAlbumForm AddAlbumForm
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public AddArtistForm AddArtistForm
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         private void LoadArts(string query)
         {
             try

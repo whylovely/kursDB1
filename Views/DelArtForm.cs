@@ -62,6 +62,19 @@ namespace kursDB1.Views
                 {
                     connection.Open();
 
+                    string checkQuery = "SELECT COUNT(*) FROM arts WHERE id = @artId";
+                    using (var checkCommand = new NpgsqlCommand(checkQuery, connection))
+                    {
+                        checkCommand.Parameters.AddWithValue("@artId", artId);
+                        int count = Convert.ToInt32(checkCommand.ExecuteScalar());
+                        
+                        if (count == 0)
+                        {
+                            MessageBox.Show("Произведение не найдено в базе данных.");
+                            return;
+                        }
+                    }
+
                     using (var transaction = connection.BeginTransaction())
                     {
                         string deleteMarksQuery = "DELETE FROM marks WHERE id_art = @artId";

@@ -1,0 +1,68 @@
+INSERT INTO users (id_user, name, email, password, role_id) VALUES
+(1, 'Ivan Zapara', 'iv@mail.ru', '321', 2),
+(2, 'Svetlana', 'sv@mail.ru', '456', 2),
+(3, 'Nikolya', 'nik@mail.ru', '789', 2),
+(4, 'Anton', 'ton@mail.ru', '101', 2),
+(5, 'Kuzmin', 'kz@mail.ru', '102', 2);
+
+INSERT INTO genres (id, name) VALUES
+(1, 'Pop'),
+(2, 'Jazz'),
+(3, 'Classical'),
+(4, 'Hip Hop'),
+(5, 'Science Fiction'),
+(6, 'Drama'),
+(9, 'Funk');
+
+INSERT INTO directors (id, name) VALUES
+(1, 'Steven Spielberg'),
+(2, 'Martin Scorsese'),
+(3, 'Christopher Nolan'),
+(4, 'Quentin Tarantino'),
+(5, 'Ridley Scott');
+
+INSERT INTO studios (id, name, count_arts, b_day) VALUES
+(1, 'Abbey Road Studios', 1000, '1931-11-12'),
+(2, 'Electric Lady Studios', 500, '1970-08-26'),
+(3, 'Sunset Sound', 800, '1958-09-01'),
+(4, 'Capitol Studios', 700, '1956-04-02'),
+(5, 'Universal Pictures', 450, '1912-07-08');
+
+INSERT INTO albums (id, name, count_arts, drop_day) VALUES
+(1, 'Abbey Road', 17, '1969-09-26'),
+(2, 'Thriller', 9, '1982-11-30'),
+(3, 'Back in Black', 10, '1980-07-25'),
+(4, 'The Dark Side of the Moon', 10, '1973-03-01'),
+(5, 'Rumours', 11, '1977-02-04');
+
+INSERT INTO labels (id, name, count_arts, b_date) VALUES
+(1, 'Sony Music', 100, '1987-05-01'),
+(2, 'Warner Bros', 80, '1975-11-15'),
+(4, 'Capitol Records', 90, '1942-04-02'),
+(5, 'Universal Music', 150, '1934-10-11'),
+(7, 'Epic Records', 120, '1953-01-01');
+
+INSERT INTO arts (id, id_label, id_artist, id_album, id_studio, id_director, id_genre, duration, name) VALUES
+(1, 6, 3, 3, 0, 0, 8, '4', 'Back in Black'), 
+(2, 0, 0, 0, 5, 1, 6, '120', 'E.T. the Extra-Terrestrial'), 
+(3, 0, 0, 0, 5, 5, 6, '171', 'Gladiator'),
+(4, 2, 5, 5, 0, 0, 8, '4', 'The Chain'),
+(5, 7, 2, 2, 0, 0, 9, '6', 'Thriller');
+
+INSERT INTO marks (id, id_user, id_art, mark, created_at) VALUES
+(1, 1, 1, 8, '2024-01-15 12:30:00'),
+(2, 2, 2, 7, '2024-01-16 14:45:00'),
+(3, 3, 3, 8, '2024-01-17 16:00:00'),
+(4, 4, 4, 6, '2024-01-18 18:15:00'),
+(5, 5, 5, 8, '2024-01-19 20:00:00');
+
+INSERT INTO artists (id, name, count_arts) VALUES
+(1, 'The Beatles', 213),
+(2, 'Michael Jackson', 147),
+(3, 'AC/DC', 175),
+(4, 'Pink Floyd', 165),
+(5, 'Fleetwood Mac', 137),
+(7, 'Madonna', 155),
+(8, 'Elvis Presley', 250),
+(9, 'Taylor Swift', 125),
+(10, 'Adele', 100);

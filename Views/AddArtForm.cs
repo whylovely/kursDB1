@@ -12,6 +12,38 @@ namespace kursDB1.Views
             InitializeComponent();
         }
 
+        public DeleteArtForm DeleteArtForm
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public EditArtForm EditArtForm
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public RateArtForm RateArtForm
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public SelectArtForm SelectArtForm
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         private void AddArtForm_Load(object sender, EventArgs e)
         {
             try

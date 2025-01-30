@@ -19,11 +19,55 @@ namespace kursDB1.Utils
                     name VARCHAR(255) NOT NULL,
                     count_arts INTEGER NOT NULL,
                     drop_day DATE,
-                    id_arttist INTEGER NOT NULL );
+                    id_artist INTEGER NOT NULL
+                );
+                CREATE INDEX idx_albums_id_artist ON albums (id_artist);
+
                 CREATE TABLE artists (
                     id SERIAL PRIMARY KEY NOT NULL,
                     name VARCHAR(255) NOT NULL,
-                    count_arts INTEGER NOT NULL );
+                    count_arts INTEGER NOT NULL
+                );
+
+                CREATE TABLE directors (
+                    id SERIAL PRIMARY KEY NOT NULL,
+                    name VARCHAR(255) NOT NULL
+                );
+
+                CREATE TABLE genres (
+                    id SERIAL PRIMARY KEY NOT NULL,
+                    name VARCHAR(255)
+                );
+
+                CREATE TABLE labels (
+                    id SERIAL PRIMARY KEY NOT NULL,
+                    name VARCHAR(255) NOT NULL,
+                    count_arts INTEGER NOT NULL,
+                    b_date DATE
+                );
+
+                CREATE TABLE roles (
+                    id SERIAL PRIMARY KEY NOT NULL,
+                    name VARCHAR(255) NOT NULL
+                );
+
+                CREATE TABLE studios (
+                    id SERIAL PRIMARY KEY NOT NULL,
+                    name VARCHAR(255) NOT NULL,
+                    count_arts INTEGER NOT NULL,
+                    b_day DATE
+                );
+
+                CREATE TABLE users (
+                    id SERIAL PRIMARY KEY NOT NULL,
+                    name VARCHAR(255) NOT NULL,
+                    email VARCHAR(255) NOT NULL,
+                    password VARCHAR(255) NOT NULL,
+                    role_id INTEGER REFERENCES roles(id) NOT NULL
+                );
+                CREATE INDEX idx_users_email ON users (email);
+                CREATE INDEX idx_users_role_id ON users (role_id);
+                
                 CREATE TABLE arts (
                     id SERIAL PRIMARY KEY NOT NULL,
                     id_label INTEGER REFERENCES labels(id) NOT NULL,
@@ -34,39 +78,24 @@ namespace kursDB1.Utils
                     id_genre INTEGER REFERENCES genres(id) NOT NULL,
                     duration INTEGER NOT NULL,
                     mark_art INTEGER NOT NULL,
-                    name VARCHAR(100));
-                CREATE TABLE directors (
-                    id SERIAL PRIMARY KEY NOT NULL,
-                    name VARCHAR(255) NOT NULL );
-                CREATE TABLE genres (
-                    id SERIAL PRIMARY KEY NOT NULL,
-                    name VARCHAR(255) );
-                CREATE TABLE labels (
-                    id SERIAL PRIMARY KEY NOT NULL,
-                    name VARCHAR(255) NOT NULL,
-                    count_arts INTEGER NOT NULL,
-                    b_date DATE );
+                    name VARCHAR(100)
+                );
+                CREATE INDEX idx_arts_id_label ON arts (id_label);
+                CREATE INDEX idx_arts_id_artist ON arts (id_artist);
+                CREATE INDEX idx_arts_id_album ON arts (id_album);
+                CREATE INDEX idx_arts_id_studio ON arts (id_studio);
+                CREATE INDEX idx_arts_id_director ON arts (id_director);
+                CREATE INDEX idx_arts_id_genre ON arts (id_genre);
+                    
                 CREATE TABLE marks (
                     id SERIAL PRIMARY KEY NOT NULL,
                     id_user INTEGER REFERENCES users(id) NOT NULL,
                     id_art INTEGER REFERENCES arts(id) NOT NULL,
                     mark INTEGER NOT NULL,
-                    created_at timestamp without time zone );
-                CREATE TABLE roles (
-                    id SERIAL PRIMARY KEY NOT NULL,
-                    name VARCHAR(255) NOT NULL );
-                CREATE TABLE studios (
-                    id SERIAL PRIMARY KEY NOT NULL,
-                    name VARCHAR(255) NOT NULL,
-                    count_arts INTEGER NOT NULL,
-                    b_day DATE );
-                CREATE TABLE users (
-                    id SERIAL PRIMARY KEY NOT NULL,
-                    name VARCHAR(255) NOT NULL,
-                    email VARCHAR(255) NOT NULL,
-                    password VARCHAR(255) NOT NULL,
-                    role_id INTEGER REFERENCES roles(id) NOT NULL ); "
-            };
+                    created_at timestamp without time zone
+                );
+                CREATE INDEX idx_marks_id_user ON marks (id_user);
+                CREATE INDEX idx_marks_id_art ON marks (id_art); "};
 
             using (var connection = new NpgsqlConnection(_connectionString))
             {

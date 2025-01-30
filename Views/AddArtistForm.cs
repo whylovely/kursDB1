@@ -2,11 +2,27 @@
 
 namespace kursDB1.Views
 {
-    public partial class AddArtistForm : Form
+    public partial class AddArtistForm : UserPanelForm
     {
         public AddArtistForm()
         {
             InitializeComponent();
+        }
+
+        public AdminPanelForm AdminPanelForm
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public AddAlbumForm AddAlbumForm
+        {
+            get => default;
+            set
+            {
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)

@@ -11,6 +11,30 @@ namespace kursDB1.Views
             InitializeComponent();
         }
 
+        public AddArtForm AddArtForm
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public AdminPanelForm AdminPanelForm
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public EditArtForm EditArtForm
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         private void AddAlbumForm_Load(object sender, EventArgs e)
         {
             try
